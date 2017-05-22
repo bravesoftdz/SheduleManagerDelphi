@@ -14,6 +14,5 @@ begin
   Application.Title := 'SheduleManager';
   Application.CreateForm(TfrmMain, frmMain);
   Application.CreateForm(TDM, DM);
-  Application.CreateForm(TfrmShedulesList, frmShedulesList);
   Application.Run;
 end.

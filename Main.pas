@@ -67,7 +67,7 @@ end;
 
 procedure TfrmMain.btn_ShedulesListClick(Sender: TObject);
 begin
-//  if (frmShedulesList = nil) then Application.CreateForm(TfrmShedulesList, ShedulesList);
+  if (frmShedulesList = nil) then Application.CreateForm(TfrmShedulesList, frmShedulesList);
   frmShedulesList.Show;
 end;
 

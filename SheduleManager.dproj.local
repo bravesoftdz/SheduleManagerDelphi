@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
-  <Transactions>
-    <Transaction>2017.05.22 19:53:02.660,=C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:54:26.962,D:\_sources\SheduleManagerDelphi\Main.pas=C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:54:26.962,D:\_sources\SheduleManagerDelphi\Main.dfm=C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
-    <Transaction>2017.05.22 19:54:37.374,D:\_sources\SheduleManagerDelphi\SheduleManager.dproj=C:\Users\Работа\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
-    <Transaction>2017.05.22 19:57:06.491,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:57:25.948,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:58:44.636,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:59:04.135,D:\_sources\SheduleManagerDelphi\MainData.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 19:59:04.135,D:\_sources\SheduleManagerDelphi\MainData.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
-    <Transaction>2017.05.22 21:26:22.527,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 21:29:01.244,D:\_sources\SheduleManagerDelphi\ShedulesList.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>2017.05.22 21:29:01.244,D:\_sources\SheduleManagerDelphi\ShedulesList.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.636,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.948,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.491,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.244,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\ShedulesList.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.527,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.135,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\MainData.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.dfm=D:\_sources\SheduleManagerDelphi\Main.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas=D:\_sources\SheduleManagerDelphi\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.660,=C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.374,C:\Users\Работа\Documents\RAD Studio\Projects\Project1.dproj=D:\_sources\SheduleManagerDelphi\SheduleManager.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.244,D:\_sources\SheduleManagerDelphi\Unit1.dfm=D:\_sources\SheduleManagerDelphi\ShedulesList.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.135,D:\_sources\SheduleManagerDelphi\Unit1.dfm=D:\_sources\SheduleManagerDelphi\MainData.dfm</Transaction>
   </Transactions>
 </BorlandProject>

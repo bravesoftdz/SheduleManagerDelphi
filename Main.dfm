@@ -42,6 +42,10 @@ object frmMain: TfrmMain
       46
       0)
     object dxMainMenuBar1: TdxBar
+      AllowClose = False
+      AllowCustomizing = False
+      AllowQuickCustomizing = False
+      AllowReset = False
       Caption = 'MainMenu'
       CaptionButtons = <>
       DockedDockingStyle = dsTop
@@ -63,7 +67,10 @@ object frmMain: TfrmMain
         end>
       OneOnRow = True
       Row = 0
+      ShowMark = False
+      SizeGrip = False
       UseOwnFont = False
+      UseRestSpace = True
       Visible = True
       WholeRow = False
     end
