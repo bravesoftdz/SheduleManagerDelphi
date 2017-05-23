@@ -37,7 +37,7 @@ object frmMain: TfrmMain
     Left = 24
     Top = 464
     DockControlHeights = (
-      0
+      27
       0
       46
       0)
@@ -73,6 +73,25 @@ object frmMain: TfrmMain
       UseRestSpace = True
       Visible = True
       WholeRow = False
+    end
+    object Bar1: TdxBar
+      Caption = 'Bar1'
+      CaptionButtons = <>
+      DockedDockingStyle = dsLeft
+      DockedLeft = 0
+      DockedTop = 0
+      DockingStyle = dsLeft
+      FloatLeft = 791
+      FloatTop = 10
+      FloatClientWidth = 0
+      FloatClientHeight = 0
+      ItemLinks = <>
+      OneOnRow = True
+      RotateWhenVertical = False
+      Row = 0
+      UseOwnFont = False
+      Visible = True
+      WholeRow = True
     end
     object btnLoadSheduleFile: TdxBarLargeButton
       Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1092#1072#1081#1083' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1103

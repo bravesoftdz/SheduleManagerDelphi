@@ -4,7 +4,8 @@ uses
   Forms,
   Main in 'Main.pas' {frmMain},
   MainData in 'MainData.pas' {DM: TDataModule},
-  ShedulesList in 'ShedulesList.pas' {frmShedulesList};
+  ShedulesList in 'ShedulesList.pas' {frmShedulesList},
+  Shedule in 'Shedule.pas' {frmShedule};
 
 {$R *.res}
 

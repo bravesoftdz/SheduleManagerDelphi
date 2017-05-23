@@ -1,7 +1,7 @@
 object frmShedulesList: TfrmShedulesList
   Left = 0
   Top = 0
-  Caption = 'frmShedulesList'
+  Caption = #1057#1087#1080#1089#1086#1082' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1081
   ClientHeight = 365
   ClientWidth = 634
   Color = clBtnFace
@@ -13,21 +13,22 @@ object frmShedulesList: TfrmShedulesList
   FormStyle = fsMDIChild
   OldCreateOrder = False
   Visible = True
+  WindowState = wsMaximized
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGridShedulesList: TcxGrid
-    Left = 0
+    Left = 70
     Top = 0
-    Width = 634
+    Width = 564
     Height = 310
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 200
-    ExplicitTop = 104
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object cxGridShedulesListDBTableView1: TcxGridDBTableView
+      OnKeyDown = cxGridShedulesListDBTableView1KeyDown
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = ds_ShedulesList
       DataController.Summary.DefaultGroupSummaryItems = <>
@@ -96,11 +97,6 @@ object frmShedulesList: TfrmShedulesList
     object sp_ShedulesListFileDate: TDateTimeField
       FieldName = 'FileDate'
     end
-    object sp_ShedulesListAcademicYears: TStringField
-      FieldName = 'AcademicYears'
-      ReadOnly = True
-      Size = 11
-    end
     object sp_ShedulesListInstitut: TStringField
       FieldName = 'Institut'
       Size = 1024
@@ -111,6 +107,62 @@ object frmShedulesList: TfrmShedulesList
     end
     object sp_ShedulesListIs_Actual: TBooleanField
       FieldName = 'Is_Actual'
+    end
+    object sp_ShedulesListAcademicYears: TStringField
+      FieldName = 'AcademicYears'
+      ReadOnly = True
+      Size = 11
+    end
+  end
+  object dxBarManager1: TdxBarManager
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Categories.Strings = (
+      'Default')
+    Categories.ItemsVisibles = (
+      2)
+    Categories.Visibles = (
+      True)
+    PopupMenuLinks = <>
+    UseSystemFont = True
+    Left = 592
+    Top = 320
+    DockControlHeights = (
+      70
+      0
+      0
+      0)
+    object dxBarManager1Bar1: TdxBar
+      Caption = 'LeftBar'
+      CaptionButtons = <>
+      DockedDockingStyle = dsLeft
+      DockedLeft = 0
+      DockedTop = 0
+      DockingStyle = dsLeft
+      FloatLeft = 668
+      FloatTop = 8
+      FloatClientWidth = 0
+      FloatClientHeight = 0
+      ItemLinks = <
+        item
+          Visible = True
+          ItemName = 'btnSave'
+        end>
+      OneOnRow = True
+      RotateWhenVertical = False
+      Row = 0
+      UseOwnFont = False
+      Visible = True
+      WholeRow = True
+    end
+    object btnSave: TdxBarButton
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      Category = 0
+      Hint = #1057#1086#1093#1088#1072#1085#1080#1090#1100
+      Visible = ivAlways
     end
   end
 end

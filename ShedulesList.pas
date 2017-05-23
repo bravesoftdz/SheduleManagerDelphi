@@ -16,7 +16,7 @@ uses
   dxSkinXmas2008Blue, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, ADODB, ExtCtrls, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, cxCheckBox;
+  cxGrid, cxCheckBox, dxSkinsdxBarPainter, dxBar, cxDBLookupComboBox;
 
 type
   TfrmShedulesList = class(TForm)
@@ -29,20 +29,29 @@ type
     sp_ShedulesListShedules_ID: TAutoIncField;
     sp_ShedulesListFileName: TStringField;
     sp_ShedulesListFileDate: TDateTimeField;
-    sp_ShedulesListAcademicYears: TStringField;
     sp_ShedulesListInstitut: TStringField;
     sp_ShedulesListSemestr: TStringField;
     cxGridShedulesListDBTableView1Shedules_ID: TcxGridDBColumn;
     cxGridShedulesListDBTableView1FileName: TcxGridDBColumn;
     cxGridShedulesListDBTableView1FileDate: TcxGridDBColumn;
-    cxGridShedulesListDBTableView1AcademicYears: TcxGridDBColumn;
     cxGridShedulesListDBTableView1Institut: TcxGridDBColumn;
     cxGridShedulesListDBTableView1Semestr: TcxGridDBColumn;
     sp_ShedulesListIs_Actual: TBooleanField;
     cxGridShedulesListDBTableView1Is_Actual: TcxGridDBColumn;
+    dxBarManager1: TdxBarManager;
+    dxBarManager1Bar1: TdxBar;
+    btnSave: TdxBarButton;
+    sp_ShedulesListAcademicYears: TStringField;
+    cxGridShedulesListDBTableView1AcademicYears: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure cxGridShedulesListDBTableView1KeyDown(Sender: TObject;
+      var Key: Word; Shift: TShiftState);
+
   private
-    { Private declarations }
+
   public
     { Public declarations }
   end;
@@ -54,12 +63,48 @@ implementation
 
 {$R *.dfm}
 
-uses MainData;
+uses MainData, Main, Shedule;
+
+
+procedure TfrmShedulesList.cxGridShedulesListDBTableView1KeyDown(
+  Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if (key = VK_RETURN) then
+  begin
+    Application.CreateForm(TfrmShedule, frmShedule);
+    frmShedule.sp_Shedule.Active := False;
+    frmShedule.sp_Shedule.Parameters.ParamByName('@Shedules_ID').Value :=
+      cxGridShedulesListDBTableView1.DataController.DataSource.DataSet.FieldByName('Shedules_ID').AsInteger;
+    frmShedule.sp_Shedule.Active := True;
+    frmShedule.Caption := 'Расписание занятий ' + frmShedule.sp_Shedule.FieldByName('InstitutName').AsString
+      + ' на ' + frmShedulesList.sp_ShedulesList.FieldByName('AcademicYears').AsString;
+    frmShedule.Show;
+  end;
+end;
+
+procedure TfrmShedulesList.FormActivate(Sender: TObject);
+begin
+  frmMain.SetDownFormButton(self);
+end;
+
+procedure TfrmShedulesList.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  frmMain.DeleteFormButton(self);
+  Action    := caFree;
+  frmShedulesList := nil;
+end;
+
+procedure TfrmShedulesList.FormCreate(Sender: TObject);
+begin
+   frmMain.CreateFormButton(self);
+end;
 
 procedure TfrmShedulesList.FormShow(Sender: TObject);
 begin
   sp_ShedulesList.Close;
   sp_ShedulesList.Active := True;
 end;
+
+
 
 end.

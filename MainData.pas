@@ -12,6 +12,10 @@ type
     ActionList: TActionList;
     Action1: TAction;
     OpenFileDialog: TOpenDialog;
+    ds_AcademicYears: TDataSource;
+    sp_AcademicYears: TADOStoredProc;
+    sp_AcademicYearsAcademic_Years_ID: TAutoIncField;
+    sp_AcademicYearsAcademicYears: TStringField;
   private
     { Private declarations }
   public

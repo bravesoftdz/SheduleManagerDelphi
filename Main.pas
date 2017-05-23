@@ -21,12 +21,18 @@ type
     btnLoadSheduleFile: TdxBarLargeButton;
     ADOQuery1: TADOQuery;
     btn_ShedulesList: TdxBarLargeButton;
+    Bar1: TdxBar;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
     procedure btn_ShedulesListClick(Sender: TObject);
+    procedure CreateFormButton(form1:TForm);
+    procedure DeleteFormButton(form1:TForm);
+    procedure SetDownFormButton(form1:TForm);
+
   private
-    { Private declarations }
+     iButtonsCount:integer;
+    procedure dxBarButtonClick(Sender: TObject);
   public
     { Public declarations }
   end;
@@ -90,12 +96,14 @@ var
   IniFile : TIniFile;
   ConnectionString : String;
 begin
+  iButtonsCount := 0;
   //Открываем файл настроек
   IniFile := TiniFile.Create(extractfilepath(paramstr(0)) + 'Settings.ini');
   ConnectionString := IniFile.ReadString('Connections', 'ConnectionString', '');
   if Length(ConnectionString) > 0 then
   begin
     Application.CreateForm(TDM, DM);
+    DM.ADOConnection.Connected := False;
     DM.ADOConnection.ConnectionString := ConnectionString;
     try
       MainData.DM.ADOConnection.Connected := True;
@@ -109,6 +117,71 @@ begin
     ShowMessage('Проверьте настройки подключения к серверу');
   end;
   IniFile.Free;
+end;
+
+procedure TfrmMain.CreateFormButton(form1:TForm);
+var
+  ABar : TdxBar;
+  NewButton : TdxBarButton;
+  NewItemLink : TdxBarItemLink;
+begin
+   inc(iButtonsCount);
+   ABar := Bar1;
+   NewButton := TdxBarButton.Create(self);
+   NewItemLink := ABar.ItemLinks.Add;
+   NewItemLink.Item := NewButton;
+   NewItemLink.Item.Tag := form1.Handle;
+   NewButton.Tag          := form1.Handle;
+   NewButton.Name         := 'dxButton'+IntToStr(NewButton.Tag);
+   NewButton.Caption      := form1.Caption; //+ '[' + IntToStr(iButtonsCount) + ']';
+   NewButton.Hint         := form1.Caption;
+   NewButton.OnClick      := dxBarButtonClick;
+   NewButton.ButtonStyle  := bsChecked;
+   NewButton.Down         := true;
+   NewButton.PaintStyle   := psCaptionGlyph;
+   NewButton.GroupIndex   := 1;
+   NewButton.Glyph.Width  := 16;//GetSystemMetrics(SM_CXSMICON);
+   NewButton.Glyph.Height := 16;//GetSystemMetrics(SM_CYSMICON);
+   NewButton.Glyph.Canvas.Draw(0,0,form1.Icon);
+   ABar.Control.RepaintBar;
+end;
+
+procedure TfrmMain.DeleteFormButton(form1:TForm);
+Var
+ i:integer;
+begin
+  for I := 0 to Bar1.ItemLinks.Count - 1 do
+    if Bar1.ItemLinks[i].Item is TdxBarButton then
+      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
+        Bar1.ItemLinks[i].Item.Free;
+        Break;
+      end;
+end;
+
+procedure TfrmMain.SetDownFormButton(form1:TForm);
+Var
+ i:integer;
+begin
+  for I := 0 to Bar1.ItemLinks.Count - 1 do
+    if Bar1.ItemLinks[i].Item is TdxBarButton then
+      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
+        TdxBarButton(Bar1.ItemLinks[i].Item).Down := false;
+      end;
+  for I := 0 to Bar1.ItemLinks.Count - 1 do
+    if Bar1.ItemLinks[i].Item is TdxBarButton then
+      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
+        TdxBarButton(Bar1.ItemLinks[i].Item).Down := true;
+        break;
+      end;
+end;
+
+procedure TfrmMain.dxBarButtonClick(Sender: TObject);
+var
+  lWinControl: TWinControl;
+begin
+  lWinControl := FindControl((sender as TdxBarButton).Tag);
+  if Assigned(lWinControl) and (lWinControl is TForm) then
+    TForm(lWinControl).BringToFront;
 end;
 
 end.
