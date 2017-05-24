@@ -57,6 +57,12 @@
 			<DCCReference Include="Shedule.pas">
 				<Form>frmShedule</Form>
 			</DCCReference>
+			<DCCReference Include="SheduleListEdit.pas">
+				<Form>frmSheduleListEdit</Form>
+			</DCCReference>
+			<DCCReference Include="Dictionaries.pas">
+				<Form>frmDictionaries</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

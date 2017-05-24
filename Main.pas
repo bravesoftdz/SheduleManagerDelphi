@@ -22,6 +22,7 @@ type
     ADOQuery1: TADOQuery;
     btn_ShedulesList: TdxBarLargeButton;
     Bar1: TdxBar;
+    btnDictionaries: TdxBarLargeButton;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -29,6 +30,7 @@ type
     procedure CreateFormButton(form1:TForm);
     procedure DeleteFormButton(form1:TForm);
     procedure SetDownFormButton(form1:TForm);
+    procedure btnDictionariesClick(Sender: TObject);
 
   private
      iButtonsCount:integer;
@@ -44,7 +46,14 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, ShedulesList;
+uses MainData, ShedulesList, Dictionaries;
+
+procedure TfrmMain.btnDictionariesClick(Sender: TObject);
+begin
+  if (frmDictionaries = nil) then Application.CreateForm(TfrmDictionaries, frmDictionaries);
+  frmDictionaries.sp_DictionariesList.Active := True;
+  frmDictionaries.Show;
+end;
 
 procedure TfrmMain.btnLoadSheduleFileClick(Sender: TObject);
 var

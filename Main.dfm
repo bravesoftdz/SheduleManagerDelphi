@@ -64,6 +64,10 @@ object frmMain: TfrmMain
         item
           Visible = True
           ItemName = 'btn_ShedulesList'
+        end
+        item
+          Visible = True
+          ItemName = 'btnDictionaries'
         end>
       OneOnRow = True
       Row = 0
@@ -109,6 +113,13 @@ object frmMain: TfrmMain
       Hint = #1057#1087#1080#1089#1086#1082' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1081
       Visible = ivAlways
       OnClick = btn_ShedulesListClick
+    end
+    object btnDictionaries: TdxBarLargeButton
+      Caption = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Category = 0
+      Hint = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
+      Visible = ivAlways
+      OnClick = btnDictionariesClick
     end
   end
   object ADOQuery1: TADOQuery

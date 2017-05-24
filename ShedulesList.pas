@@ -43,12 +43,23 @@ type
     btnSave: TdxBarButton;
     sp_ShedulesListAcademicYears: TStringField;
     cxGridShedulesListDBTableView1AcademicYears: TcxGridDBColumn;
+    dxBarPopupMenu1: TdxBarPopupMenu;
+    btnRecordEdit: TdxBarButton;
+    btnSheduleOpen: TdxBarButton;
+    btnRecordDelete: TdxBarButton;
+    sp_ShedulesList_AcademicYearsID: TAutoIncField;
+    sp_ShedulesList_InstitutID: TAutoIncField;
+    sp_ShedulesList_SemestrID: TAutoIncField;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure cxGridShedulesListDBTableView1KeyDown(Sender: TObject;
       var Key: Word; Shift: TShiftState);
+    procedure OpenShedule;
+    procedure btnSheduleOpenClick(Sender: TObject);
+    procedure RecordEdit;
+    procedure btnRecordEditClick(Sender: TObject);
 
   private
 
@@ -63,23 +74,35 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, Main, Shedule;
+uses MainData, Main, Shedule, SheduleListEdit;
 
+
+procedure TfrmShedulesList.btnRecordEditClick(Sender: TObject);
+begin
+  RecordEdit;
+end;
+
+procedure TfrmShedulesList.btnSheduleOpenClick(Sender: TObject);
+begin
+  OpenShedule;
+end;
 
 procedure TfrmShedulesList.cxGridShedulesListDBTableView1KeyDown(
   Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if (key = VK_RETURN) then
-  begin
-    Application.CreateForm(TfrmShedule, frmShedule);
-    frmShedule.sp_Shedule.Active := False;
-    frmShedule.sp_Shedule.Parameters.ParamByName('@Shedules_ID').Value :=
-      cxGridShedulesListDBTableView1.DataController.DataSource.DataSet.FieldByName('Shedules_ID').AsInteger;
-    frmShedule.sp_Shedule.Active := True;
-    frmShedule.Caption := 'Расписание занятий ' + frmShedule.sp_Shedule.FieldByName('InstitutName').AsString
-      + ' на ' + frmShedulesList.sp_ShedulesList.FieldByName('AcademicYears').AsString;
-    frmShedule.Show;
-  end;
+  if (key = VK_RETURN) then OpenShedule;
+end;
+
+procedure TfrmShedulesList.OpenShedule;
+begin
+  Application.CreateForm(TfrmShedule, frmShedule);
+  frmShedule.sp_Shedule.Active := False;
+  frmShedule.sp_Shedule.Parameters.ParamByName('@Shedules_ID').Value :=
+    cxGridShedulesListDBTableView1.DataController.DataSource.DataSet.FieldByName('Shedules_ID').AsInteger;
+  frmShedule.sp_Shedule.Active := True;
+  frmShedule.Caption := 'Расписание занятий ' + frmShedule.sp_Shedule.FieldByName('InstitutName').AsString
+    + ' на ' + frmShedulesList.sp_ShedulesList.FieldByName('AcademicYears').AsString;
+  frmShedule.Show;
 end;
 
 procedure TfrmShedulesList.FormActivate(Sender: TObject);
@@ -104,6 +127,25 @@ begin
   sp_ShedulesList.Close;
   sp_ShedulesList.Active := True;
 end;
+
+procedure TfrmShedulesList.RecordEdit;
+begin
+  if (frmSheduleListEdit = nil) then Application.CreateForm(TfrmSheduleListEdit, frmSheduleListEdit);
+  DM.sp_AcademicYears.Active := False;
+  MainData.DM.sp_AcademicYears.Active := True;
+  if (not(frmSheduleListEdit.sp_AcademicYears.Active)) then frmSheduleListEdit.sp_AcademicYears.Active := True;
+  if (not(frmSheduleListEdit.sp_Institut.Active)) then frmSheduleListEdit.sp_Institut.Active := True;
+  if (not(frmSheduleListEdit.sp_Semestrs.Active)) then frmSheduleListEdit.sp_Semestrs.Active := True;
+  frmSheduleListEdit.lcb_AcademicYears.EditValue := sp_ShedulesList.FieldByName('_AcademicYearsID').AsInteger;
+  frmSheduleListEdit.lcb_Institut.EditValue := sp_ShedulesList.FieldByName('_InstitutID').AsInteger;
+  frmSheduleListEdit.lcb_Semestr.EditValue := sp_ShedulesList.FieldByName('_SemestrID').AsInteger;
+  frmSheduleListEdit.SheduleID := sp_ShedulesListShedules_ID.AsInteger;
+
+
+
+  frmSheduleListEdit.ShowModal;
+end;
+
 
 
 
