@@ -6,7 +6,10 @@ object DM: TDM
     Connected = True
     ConnectionString = 
       'Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security In' +
-      'fo=False;Initial Catalog=DataBase_Shedule;Data Source=DELL_BOOK;'
+      'fo=False;Initial Catalog=DataBase_Shedule;Data Source=DELL_BOOK;' +
+      'Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096' +
+      ';Workstation ID=DELL_BOOK;Use Encryption for Data=False;Tag with' +
+      ' column collation when possible=False'
     LoginPrompt = False
     Provider = 'SQLOLEDB.1'
     Left = 32
@@ -36,9 +39,10 @@ object DM: TDM
     Top = 376
   end
   object sp_AcademicYears: TADOStoredProc
+    Active = True
     Connection = ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_AcademicYears;1'
+    ProcedureName = 'p_Academic_Years;1'
     Parameters = <>
     Left = 32
     Top = 328
@@ -51,5 +55,39 @@ object DM: TDM
       ReadOnly = True
       Size = 11
     end
+    object sp_AcademicYearsYear_Begin: TIntegerField
+      FieldName = 'Year_Begin'
+    end
+    object sp_AcademicYearsYear_End: TIntegerField
+      FieldName = 'Year_End'
+    end
+  end
+  object frxReport1: TfrxReport
+    Version = '4.10.5'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 42880.809760011570000000
+    ReportOptions.LastChange = 42880.809760011570000000
+    ScriptLanguage = 'PascalScript'
+    ScriptText.Strings = (
+      'begin'
+      ''
+      'end.')
+    Left = 32
+    Top = 64
+    Datasets = <>
+    Variables = <>
+    Style = <>
+  end
+  object ADOStoredProc1: TADOStoredProc
+    Connection = ADOConnection
+    ProcedureName = 'p_Academic_Years;1'
+    Parameters = <>
+    Left = 152
+    Top = 200
   end
 end

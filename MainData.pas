@@ -3,7 +3,8 @@ unit MainData;
 interface
 
 uses
-  SysUtils, Classes, DB, ADODB, ImgList, Controls, cxGraphics, Dialogs, ActnList;
+  SysUtils, Classes, DB, ADODB, ImgList, Controls, cxGraphics, Dialogs, ActnList,
+  frxClass;
 
 type
   TDM = class(TDataModule)
@@ -16,6 +17,10 @@ type
     sp_AcademicYears: TADOStoredProc;
     sp_AcademicYearsAcademic_Years_ID: TAutoIncField;
     sp_AcademicYearsAcademicYears: TStringField;
+    frxReport1: TfrxReport;
+    ADOStoredProc1: TADOStoredProc;
+    sp_AcademicYearsYear_Begin: TIntegerField;
+    sp_AcademicYearsYear_End: TIntegerField;
   private
     { Private declarations }
   public

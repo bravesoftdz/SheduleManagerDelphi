@@ -60,6 +60,11 @@ type
     procedure btnSheduleOpenClick(Sender: TObject);
     procedure RecordEdit;
     procedure btnRecordEditClick(Sender: TObject);
+    procedure cxGridShedulesListDBTableView1CellDblClick(
+      Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure RecordDelete;
 
   private
 
@@ -85,6 +90,13 @@ end;
 procedure TfrmShedulesList.btnSheduleOpenClick(Sender: TObject);
 begin
   OpenShedule;
+end;
+
+procedure TfrmShedulesList.cxGridShedulesListDBTableView1CellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+   RecordEdit;
 end;
 
 procedure TfrmShedulesList.cxGridShedulesListDBTableView1KeyDown(
@@ -140,11 +152,24 @@ begin
   frmSheduleListEdit.lcb_Institut.EditValue := sp_ShedulesList.FieldByName('_InstitutID').AsInteger;
   frmSheduleListEdit.lcb_Semestr.EditValue := sp_ShedulesList.FieldByName('_SemestrID').AsInteger;
   frmSheduleListEdit.SheduleID := sp_ShedulesListShedules_ID.AsInteger;
-
-
-
   frmSheduleListEdit.ShowModal;
 end;
+
+procedure TfrmShedulesList.RecordDelete;
+var
+  spDelete : TADOStoredProc;
+begin
+  spDelete := TADOStoredProc.Create(nil);
+  spDelete.Connection := DM.ADOConnection;
+  spDelete.ProcedureName := 'p_Shedule_Delete';
+  spDelete.Parameters.ParamByName('@Shedule_ID').Value := sp_ShedulesListShedules_ID.AsInteger;
+  if (not spDelete.Active) then spDelete.Active;
+  spDelete.Open;
+  spDelete.Close;
+  sp_ShedulesList.Refresh;
+
+end;
+
 
 
 

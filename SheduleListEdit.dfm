@@ -156,7 +156,7 @@ object frmSheduleListEdit: TfrmSheduleListEdit
   object sp_AcademicYears: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_AcademicYears;1'
+    ProcedureName = 'p_Academic_Years;1'
     Parameters = <>
     Left = 272
     Top = 8

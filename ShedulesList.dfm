@@ -31,11 +31,13 @@ object frmShedulesList: TfrmShedulesList
       PopupMenu = dxBarPopupMenu1
       OnKeyDown = cxGridShedulesListDBTableView1KeyDown
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = cxGridShedulesListDBTableView1CellDblClick
       DataController.DataSource = ds_ShedulesList
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.ColumnAutoWidth = True
       object cxGridShedulesListDBTableView1Shedules_ID: TcxGridDBColumn
         DataBinding.FieldName = 'Shedules_ID'
         Visible = False
@@ -82,7 +84,6 @@ object frmShedulesList: TfrmShedulesList
     Top = 312
   end
   object sp_ShedulesList: TADOStoredProc
-    Active = True
     Connection = DM.ADOConnection
     CursorType = ctStatic
     ProcedureName = 'p_Shedules_List'
