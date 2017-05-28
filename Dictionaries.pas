@@ -16,7 +16,7 @@ uses
   dxSkinXmas2008Blue, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, ADODB, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, cxGridBandedTableView;
+  cxGrid, cxGridBandedTableView, StdCtrls, ComCtrls, Mask, dxBar;
 
 type
   TfrmDictionaries = class(TForm)
@@ -123,10 +123,49 @@ type
     v_GroupsName: TcxGridDBColumn;
     v_DaysDays_ID: TcxGridDBColumn;
     v_DaysName: TcxGridDBColumn;
+    popupDictionaries: TdxBarPopupMenu;
     procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+    procedure btnCancelClick(Sender : TObject);
     procedure gr_DictionariesListDBTableView1CellClick(
       Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure RecordEdit(cxView : TcxGridDBTableView);
+    procedure RecordDelete(cxView : TcxGridDBTableView);
+    procedure InsertRecord(cxView : TcxGridDBTableView);
+    procedure v_AcademicYearsCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_ClassRoomsCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_DaysCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_GroupsCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_InstitutesCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_LessonNumberCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_LessonTypeCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_SemestrsCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_SubjectsCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_TeachersCellDblClick(Sender: TcxCustomGridTableView;
+      ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+      AShift: TShiftState; var AHandled: Boolean);
+    procedure v_WeeksCellDblClick(Sender: TcxCustomGridTableView;
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
   private
@@ -137,6 +176,8 @@ type
 
 var
   frmDictionaries: TfrmDictionaries;
+  frmEdit : TForm;
+  Act : Integer;
 
 implementation
 
@@ -165,6 +206,286 @@ begin
   spADO := (frmDictionaries.FindComponent('sp_' + ViewName) as TADOStoredProc);
   if (not spADO.Active) then spADO.Active := True;
   cxGrid2Level1.GridView := (frmDictionaries.FindComponent('v_' + ViewName) as TcxCustomGridView);
+end;
+
+procedure TfrmDictionaries.btnCancelClick(Sender : TObject);
+begin
+  frmEdit.Close;
+end;
+
+procedure TfrmDictionaries.RecordEdit(cxView : TcxGridDBTableView);
+var
+  i : integer;
+  edEdit : TEdit;
+  tTime : TMaskEdit;
+  btnSave, btnCancel : TButton;
+  lb : TLabel;
+begin
+  if (frmEdit <> nil) then
+  begin
+    frmEdit.Destroy;
+  end;
+  Application.CreateForm(TForm, frmEdit);
+  frmEdit.Position := poScreenCenter;
+  for i := 0 to cxView.ColumnCount-1 do
+  begin
+    if (FindComponent('lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then lb := TLabel.Create(frmEdit)
+    else lb := (FindComponent('lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TLabel);
+
+    lb.Parent := frmEdit;
+    lb.Left := 10;
+    lb.Caption := cxView.Columns[i].Caption + ': ';
+    lb.Top := (i * 25) + 10;
+    lb.Name := 'lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+
+    if AnsiPos('Time', cxView.DataController.DataSource.DataSet.Fields[i].FieldName) > 0 then
+    begin
+      if (FindComponent('tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then tTime := TMaskEdit.Create(frmEdit)
+      else tTime := (FindComponent('tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TMaskEdit);
+      tTime.Parent := frmEdit;
+      tTime.Left := lb.Width + 20;
+      tTime.EditMask := '!90:00:00;1;_';
+      tTime.Text := VarToStr(cxView.DataController.DataSource.DataSet.Fields[i].Value);
+      tTime.Top := (i * 25) + 10;
+      tTime.Name := 'tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+    end
+    else
+    begin
+      if (FindComponent('ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then edEdit := TEdit.Create(frmEdit)
+      else edEdit := (FindComponent('ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TEdit);
+      edEdit.Parent := frmEdit;
+      edEdit.Left := lb.Width + 20;
+      edEdit.Text := VarToStr(cxView.DataController.DataSource.DataSet.Fields[i].Value);
+      edEdit.Top := (i * 25) + 10;
+      edEdit.Name := 'ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+    end;
+  end;
+  btnSave := TButton.Create(frmEdit);
+  btnSave.Parent := frmEdit;
+  btnSave.Name := 'btnSave';
+  btnSave.Caption := 'Сохранить';
+  btnSave.Left := 10;
+  btnSave.Top := (cxView.ColumnCount+1) * 25 + 10;
+  Act := 2;
+  btnSave.OnClick := btnSaveClick;
+
+  btnCancel := TButton.Create(frmEdit);
+  btnCancel.Parent := frmEdit;
+  btnCancel.Name := 'btnCancel';
+  btnCancel.Caption := 'Отменить';
+  btnCancel.Left := btnSave.Width + 20;
+  btnCancel.Top := (cxView.ColumnCount+1) * 25 + 10;
+  btnCancel.OnClick := btnCancelClick;
+  frmEdit.ShowModal;
+end;
+
+procedure TfrmDictionaries.InsertRecord(cxView : TcxGridDBTableView);
+var
+  i : integer;
+  edEdit : TEdit;
+  tTime : TMaskEdit;
+  btnSave, btnCancel : TButton;
+  lb : TLabel;
+begin
+  if (frmEdit <> nil) then
+  begin
+    frmEdit.Destroy;
+  end;
+  Application.CreateForm(TForm, frmEdit);
+  frmEdit.Position := poScreenCenter;
+  for i := 0 to cxView.ColumnCount-1 do
+  begin
+    if (FindComponent('lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then lb := TLabel.Create(frmEdit)
+    else lb := (FindComponent('lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TLabel);
+
+    lb.Parent := frmEdit;
+    lb.Left := 10;
+    lb.Caption := cxView.Columns[i].Caption + ': ';
+    lb.Top := (i * 25) + 10;
+    lb.Name := 'lb_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+
+    if AnsiPos('Time', cxView.DataController.DataSource.DataSet.Fields[i].FieldName) > 0 then
+    begin
+      if (FindComponent('tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then tTime := TMaskEdit.Create(frmEdit)
+      else tTime := (FindComponent('tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TMaskEdit);
+      tTime.Parent := frmEdit;
+      tTime.Left := lb.Width + 20;
+      tTime.EditMask := '!90:00:00;1;_';
+      //tTime.Text := VarToStr(cxView.DataController.DataSource.DataSet.Fields[i].Value);
+      tTime.Top := (i * 25) + 10;
+      tTime.Name := 'tp_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+    end
+    else
+    begin
+      if (FindComponent('ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) = nil) then edEdit := TEdit.Create(frmEdit)
+      else edEdit := (FindComponent('ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName) as TEdit);
+      edEdit.Parent := frmEdit;
+      edEdit.Left := lb.Width + 20;
+      edEdit.Top := (i * 25) + 10;
+      edEdit.Name := 'ed_' + cxView.DataController.DataSource.DataSet.Fields[i].FieldName;
+      edEdit.Text := '';
+      if i = 0 then edEdit.Enabled := False;
+    end;
+  end;
+  btnSave := TButton.Create(frmEdit);
+  btnSave.Parent := frmEdit;
+  btnSave.Name := 'btnSave';
+  btnSave.Caption := 'Сохранить';
+  btnSave.Left := 10;
+  btnSave.Top := (cxView.ColumnCount+1) * 25 + 10;
+  Act := 1;
+  btnSave.OnClick := btnSaveClick;
+
+  btnCancel := TButton.Create(frmEdit);
+  btnCancel.Parent := frmEdit;
+  btnCancel.Name := 'btnCancel';
+  btnCancel.Caption := 'Отменить';
+  btnCancel.Left := btnSave.Width + 20;
+  btnCancel.Top := (cxView.ColumnCount+1) * 25 + 10;
+  btnCancel.OnClick := btnCancelClick;
+  frmEdit.ShowModal;
+end;
+
+procedure TfrmDictionaries.btnSaveClick(Sender: TObject);
+var
+  spSave, spFields : TADOStoredProc;
+  fieldName : String;
+  i : Integer;
+  Time : TTime;
+begin
+  spSave := TADOStoredProc.Create(nil);
+  spSave.Close;
+  spSave.Connection := DM.ADOConnection;
+  spFields := TADOStoredProc.Create(nil);
+  spFields := ((cxGrid2.ActiveView as TcxGridDBTableView).DataController.DataSource.DataSet as TADOStoredProc);
+  spSave.ProcedureName := StringReplace(spFields.ProcedureName, ';1', '', [rfReplaceAll, rfIgnoreCase]) + '_Save';
+  spSave.Parameters.Refresh;
+  for i := 0 to frmEdit.ComponentCount-1 do
+  begin
+    if (AnsiPos('tp_', frmEdit.Components[i].Name) > 0) then
+    begin
+      fieldName := StringReplace(frmEdit.Components[i].Name, 'tp_', '', [rfReplaceAll, rfIgnoreCase]);
+      spSave.Parameters.ParamByName('@' + fieldName).Value := (frmEdit.FindComponent('tp_' + fieldName) as TMaskEdit).Text;
+    end
+    else if (AnsiPos('ed_', frmEdit.Components[i].Name) > 0) then
+    begin
+      fieldName := StringReplace(frmEdit.Components[i].Name, 'ed_', '', [rfReplaceAll, rfIgnoreCase]);
+      if (frmEdit.FindComponent('ed_' + fieldName) as TEdit).Text = '' then spSave.Parameters.ParamByName('@' + fieldName).Value := Null
+      else spSave.Parameters.ParamByName('@' + fieldName).Value := (frmEdit.FindComponent('ed_' + fieldName) as TEdit).Text;
+    end;
+  end;
+  spSave.Parameters.ParamByName('@Action').Value := Act;
+  spSave.ExecProc;
+  spFields.Close;
+  spFields.Open;
+  frmEdit.Close;
+end;
+
+procedure TfrmDictionaries.RecordDelete(cxView : TcxGridDBTableView);
+var
+  q_Delete : TADOQuery;
+  tableName, sqlText : String;
+begin
+  if (MessageDlg('Удалить запись?', mtError, mbYesNo, 0) = mrYes) then
+  begin
+    try
+      try
+        q_Delete := TADOQuery.Create(nil);
+        q_Delete.Close;
+        q_Delete.Connection := DM.ADOConnection;
+        q_Delete.SQL.Clear;
+        tableName := StringReplace((cxView.DataController.DataSource.DataSet as TADOStoredProc).ProcedureName, 'p_', '', [rfReplaceAll, rfIgnoreCase]);
+        tableName := StringReplace(tableName, ';1', '', [rfReplaceAll, rfIgnoreCase]);
+        sqlText := 'delete from dbo.t_' + tableName + ' where ' + tableName + '_ID = ' + (cxView.DataController.DataSource.DataSet as TADOStoredProc).FieldByName(tableName + '_ID').AsString;
+        q_Delete.SQL.Text := sqlText;
+        q_Delete.ExecSQL;
+        cxView.DataController.DataSource.DataSet.Close;
+        cxView.DataController.DataSource.DataSet.Open;
+        ShowMessage('Запись успешно удалена');
+      except on e : Exception do
+        ShowMessage('Ошибка: ' + e.Message);
+      end;
+    finally
+      q_Delete.Free;
+    end;
+  end;
+end;
+
+procedure TfrmDictionaries.v_AcademicYearsCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_ClassRoomsCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_DaysCellDblClick(Sender: TcxCustomGridTableView;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+  AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_GroupsCellDblClick(Sender: TcxCustomGridTableView;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+  AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_InstitutesCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_LessonNumberCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_LessonTypeCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_SemestrsCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_SubjectsCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_TeachersCellDblClick(
+  Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;
+  AButton: TMouseButton; AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmDictionaries.v_WeeksCellDblClick(Sender: TcxCustomGridTableView;
+  ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
+  AShift: TShiftState; var AHandled: Boolean);
+begin
+  RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
 end;
 
 end.

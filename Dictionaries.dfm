@@ -1,7 +1,7 @@
 object frmDictionaries: TfrmDictionaries
   Left = 0
   Top = 0
-  Caption = 'frmDictionaries'
+  Caption = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
   ClientHeight = 502
   ClientWidth = 731
   Color = clBtnFace
@@ -25,9 +25,6 @@ object frmDictionaries: TfrmDictionaries
     Height = 502
     Align = alLeft
     TabOrder = 0
-    ExplicitLeft = 32
-    ExplicitTop = 88
-    ExplicitHeight = 200
     object gr_DictionariesListDBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       OnCellClick = gr_DictionariesListDBTableView1CellClick
@@ -62,16 +59,16 @@ object frmDictionaries: TfrmDictionaries
     Height = 502
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 288
-    ExplicitTop = 88
-    ExplicitWidth = 250
-    ExplicitHeight = 200
     object v_AcademicYears: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_AcademicYearsCellDblClick
       DataController.DataSource = ds_AcademicYears
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_AcademicYearsAcademic_Years_ID: TcxGridDBColumn
@@ -90,11 +87,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_ClassRooms: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_ClassRoomsCellDblClick
       DataController.DataSource = ds_ClassRooms
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_ClassRoomsClassRooms_ID: TcxGridDBColumn
@@ -105,11 +106,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Days: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_DaysCellDblClick
       DataController.DataSource = ds_Days
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_DaysDays_ID: TcxGridDBColumn
@@ -120,11 +125,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Groups: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_GroupsCellDblClick
       DataController.DataSource = ds_Groups
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_GroupsGroups_ID: TcxGridDBColumn
@@ -135,11 +144,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Institutes: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_InstitutesCellDblClick
       DataController.DataSource = ds_Institutes
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_InstitutesInstitutes_ID: TcxGridDBColumn
@@ -150,11 +163,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_LessonNumber: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_LessonNumberCellDblClick
       DataController.DataSource = ds_LessonNumber
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_LessonNumberLesson_Number_ID: TcxGridDBColumn
@@ -171,11 +188,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_LessonType: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_LessonTypeCellDblClick
       DataController.DataSource = ds_LessonType
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_LessonTypeLesson_Type_ID: TcxGridDBColumn
@@ -189,11 +210,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Semestrs: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_SemestrsCellDblClick
       DataController.DataSource = ds_Semestrs
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_SemestrsSemestrs_ID: TcxGridDBColumn
@@ -204,11 +229,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Subjects: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_SubjectsCellDblClick
       DataController.DataSource = ds_Subjects
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_SubjectsSubjects_ID: TcxGridDBColumn
@@ -219,11 +248,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Teachers: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_TeachersCellDblClick
       DataController.DataSource = ds_Teachers
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_TeachersTeachers_ID: TcxGridDBColumn
@@ -234,11 +267,15 @@ object frmDictionaries: TfrmDictionaries
       end
     end
     object v_Weeks: TcxGridDBTableView
+      PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
+      OnCellDblClick = v_WeeksCellDblClick
       DataController.DataSource = ds_Weeks
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
+      OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
       object v_WeeksWeeks_ID: TcxGridDBColumn
@@ -536,5 +573,24 @@ object frmDictionaries: TfrmDictionaries
     DataSet = sp_Weeks
     Left = 560
     Top = 24
+  end
+  object popupDictionaries: TdxBarPopupMenu
+    BarManager = frmMain.dxBarManager
+    ItemLinks = <
+      item
+        Visible = True
+        ItemName = 'btnEdit'
+      end
+      item
+        Visible = True
+        ItemName = 'btnDelete'
+      end
+      item
+        Visible = True
+        ItemName = 'btnInsert'
+      end>
+    UseOwnFont = False
+    Left = 464
+    Top = 456
   end
 end

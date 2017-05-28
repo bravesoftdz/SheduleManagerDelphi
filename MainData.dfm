@@ -30,6 +30,7 @@ object DM: TDM
     end
   end
   object OpenFileDialog: TOpenDialog
+    Options = [ofHideReadOnly, ofAllowMultiSelect, ofEnableSizing]
     Left = 280
     Top = 368
   end

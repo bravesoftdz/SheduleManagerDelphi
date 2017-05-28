@@ -12,7 +12,8 @@ uses
   dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
   dxSkinPumpkin, dxSkinSeven, dxSkinSharp, dxSkinSilver, dxSkinSpringTime,
   dxSkinStardust, dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine,
-  dxSkinXmas2008Blue, dxSkinsdxBarPainter, dxBar, cxClasses, ADODB, DB;
+  dxSkinXmas2008Blue, dxSkinsdxBarPainter, dxBar, cxClasses, ADODB, DB, cxTextEdit,
+  StdCtrls, cxGridDBTableView;
 
 type
   TfrmMain = class(TForm)
@@ -23,6 +24,10 @@ type
     btn_ShedulesList: TdxBarLargeButton;
     Bar1: TdxBar;
     btnDictionaries: TdxBarLargeButton;
+    dxBarButton1: TdxBarButton;
+    btnEdit: TdxBarButton;
+    btnDelete: TdxBarButton;
+    btnInsert: TdxBarButton;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -31,6 +36,9 @@ type
     procedure DeleteFormButton(form1:TForm);
     procedure SetDownFormButton(form1:TForm);
     procedure btnDictionariesClick(Sender: TObject);
+    procedure btnEditClick(Sender: TObject);
+    procedure btnDeleteClick(Sender: TObject);
+    procedure btnInsertClick(Sender: TObject);
 
   private
      iButtonsCount:integer;
@@ -46,7 +54,12 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, ShedulesList, Dictionaries;
+uses MainData, ShedulesList, Dictionaries, DictionariesEdit;
+
+procedure TfrmMain.btnDeleteClick(Sender: TObject);
+begin
+  frmDictionaries.RecordDelete((frmDictionaries.cxGrid2.ActiveView as TcxGridDBTableView));
+end;
 
 procedure TfrmMain.btnDictionariesClick(Sender: TObject);
 begin
@@ -55,39 +68,68 @@ begin
   frmDictionaries.Show;
 end;
 
+procedure TfrmMain.btnEditClick(Sender: TObject);
+begin
+   frmDictionaries.RecordEdit((frmDictionaries.cxGrid2.ActiveView as TcxGridDBTableView));
+end;
+
+procedure TfrmMain.btnInsertClick(Sender: TObject);
+begin
+  frmDictionaries.InsertRecord(frmDictionaries.cxGrid2.ActiveView as TcxGridDBTableView);
+end;
+
 procedure TfrmMain.btnLoadSheduleFileClick(Sender: TObject);
 var
   FilePath : String;
   sp_LoadFileShedule : TADOStoredProc;
+  i : integer;
 begin
   if (DM.OpenFileDialog.Execute()) then
-    if (Length(DM.OpenFileDialog.FileName) > 0) then
+    if (DM.OpenFileDialog.Files.Count > 0) then
     begin
-      FilePath := DM.OpenFileDialog.FileName;
-      try
-        sp_LoadFileShedule := TADOStoredProc.Create(nil);
-        sp_LoadFileShedule.Connection := DM.ADOConnection;
-        sp_LoadFileShedule.Active := False;
-        sp_LoadFileShedule.ProcedureName := 'p_SheduleParse';
-        sp_LoadFileShedule.Parameters.Clear;
-        sp_LoadFileShedule.Parameters.CreateParameter('@FilePath', ftString, pdInput, 1024, 0);
-        sp_LoadFileShedule.Parameters.ParamValues['@FilePath'] := FilePath;
-        sp_LoadFileShedule.ExecProc;
-        ShowMessage('Загрузка файла завершена');
-      finally
-        sp_LoadFileShedule.Free;
+      for i := 1 to DM.OpenFileDialog.Files.Count do
+      begin
+        FilePath := DM.OpenFileDialog.FileName;
+        try
+          sp_LoadFileShedule := TADOStoredProc.Create(nil);
+          sp_LoadFileShedule.Connection := DM.ADOConnection;
+          sp_LoadFileShedule.Active := False;
+          sp_LoadFileShedule.ProcedureName := 'p_SheduleParse';
+          sp_LoadFileShedule.Parameters.Clear;
+          sp_LoadFileShedule.Parameters.CreateParameter('@FilePath', ftString, pdInput, 1024, 0);
+          sp_LoadFileShedule.Parameters.ParamValues['@FilePath'] := FilePath;
+          sp_LoadFileShedule.ExecProc;
+        finally
+          sp_LoadFileShedule.Free;
+        end;
+      end;
+      ShowMessage('Загрузка завершена');
+      if (frmShedulesList <> nil) then
+      begin
+        frmShedulesList.sp_ShedulesList.Close;
+        frmShedulesList.sp_ShedulesList.Open;
       end;
     end;
 end;
 
 procedure TfrmMain.btn_ShedulesListClick(Sender: TObject);
 begin
-  if (frmShedulesList = nil) then Application.CreateForm(TfrmShedulesList, frmShedulesList);
+  if (frmShedulesList = nil) then Application.CreateForm(TfrmShedulesList, frmShedulesList)
+  else
+  begin
+    frmShedulesList.sp_ShedulesList.Close;
+    frmShedulesList.sp_ShedulesList.Open;
+  end;
   frmShedulesList.Show;
 end;
 
 procedure TfrmMain.dxBarButton1Click(Sender: TObject);
+var
+  frmEdit : TForm;
+  component : TcxTextEdit;
+  Edit : TEdit;
 begin
+  {
   ADOQuery1.Close;
   if not DM.ADOConnection.Connected then
   begin
@@ -98,6 +140,10 @@ begin
   ADOQuery1.Open;
   ShowMessage(IntToStr(ADOQuery1.RecordCount));
   end;
+  }
+
+
+
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);

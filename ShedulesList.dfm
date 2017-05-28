@@ -199,6 +199,7 @@ object frmShedulesList: TfrmShedulesList
       Category = 0
       Hint = #1059#1076#1072#1083#1080#1090#1100' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1077
       Visible = ivAlways
+      OnClick = btnRecordDeleteClick
     end
   end
   object dxBarPopupMenu1: TdxBarPopupMenu

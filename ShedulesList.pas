@@ -65,6 +65,7 @@ type
       ACellViewInfo: TcxGridTableDataCellViewInfo; AButton: TMouseButton;
       AShift: TShiftState; var AHandled: Boolean);
     procedure RecordDelete;
+    procedure btnRecordDeleteClick(Sender: TObject);
 
   private
 
@@ -81,6 +82,11 @@ implementation
 
 uses MainData, Main, Shedule, SheduleListEdit;
 
+
+procedure TfrmShedulesList.btnRecordDeleteClick(Sender: TObject);
+begin
+  RecordDelete;
+end;
 
 procedure TfrmShedulesList.btnRecordEditClick(Sender: TObject);
 begin
@@ -155,19 +161,23 @@ begin
   frmSheduleListEdit.ShowModal;
 end;
 
-procedure TfrmShedulesList.RecordDelete;
+procedure TfrmShedulesList.RecordDelete();
 var
-  spDelete : TADOStoredProc;
+  sp_Delete : TADOStoredProc;
 begin
-  spDelete := TADOStoredProc.Create(nil);
-  spDelete.Connection := DM.ADOConnection;
-  spDelete.ProcedureName := 'p_Shedule_Delete';
-  spDelete.Parameters.ParamByName('@Shedule_ID').Value := sp_ShedulesListShedules_ID.AsInteger;
-  if (not spDelete.Active) then spDelete.Active;
-  spDelete.Open;
-  spDelete.Close;
-  sp_ShedulesList.Refresh;
-
+  if (MessageDlg('Удалить запись?', mtError, mbYesNo, 0) = mrYes) then
+  begin
+    sp_Delete := TADOStoredProc.Create(nil);
+    sp_Delete.Connection := DM.ADOConnection;
+    sp_Delete.Close;
+    sp_Delete.ProcedureName := 'p_Shedule_Delete';
+    sp_Delete.Parameters.Refresh;
+    sp_Delete.Parameters.ParamByName('@Shedule_ID').Value := sp_ShedulesListShedules_ID.AsInteger;
+    sp_Delete.ExecProc;
+    sp_ShedulesList.Close;
+    sp_ShedulesList.Open;
+    sp_Delete.Free;
+  end;
 end;
 
 

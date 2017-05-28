@@ -24,10 +24,13 @@ object frmMain: TfrmMain
     Font.Name = 'Segoe UI'
     Font.Style = []
     Categories.Strings = (
-      'Default')
+      'Default'
+      'Dictionaries')
     Categories.ItemsVisibles = (
+      2
       2)
     Categories.Visibles = (
+      True
       True)
     ImageOptions.Images = DM.cxImageLibrary
     ImageOptions.LargeImages = DM.cxImageLibrary
@@ -68,6 +71,10 @@ object frmMain: TfrmMain
         item
           Visible = True
           ItemName = 'btnDictionaries'
+        end
+        item
+          Visible = True
+          ItemName = 'dxBarButton1'
         end>
       OneOnRow = True
       Row = 0
@@ -120,6 +127,34 @@ object frmMain: TfrmMain
       Hint = #1057#1087#1088#1072#1074#1086#1095#1085#1080#1082#1080
       Visible = ivAlways
       OnClick = btnDictionariesClick
+    end
+    object dxBarButton1: TdxBarButton
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      OnClick = dxBarButton1Click
+    end
+    object btnEdit: TdxBarButton
+      Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
+      Category = 1
+      Hint = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
+      Visible = ivAlways
+      OnClick = btnEditClick
+    end
+    object btnDelete: TdxBarButton
+      Caption = #1059#1076#1072#1083#1080#1090#1100
+      Category = 1
+      Hint = #1059#1076#1072#1083#1080#1090#1100
+      Visible = ivAlways
+      OnClick = btnDeleteClick
+    end
+    object btnInsert: TdxBarButton
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+      Category = 1
+      Hint = #1044#1086#1073#1072#1074#1080#1090#1100
+      Visible = ivAlways
+      OnClick = btnInsertClick
     end
   end
   object ADOQuery1: TADOQuery
