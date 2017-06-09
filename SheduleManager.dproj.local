@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.135,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\MainData.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.636,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.948,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.906,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.527,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.491,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.426,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.135,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\MainData.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.844,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\DictionariesEdit.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.374,C:\Users\Работа\Documents\RAD Studio\Projects\Project1.dproj=D:\_sources\SheduleManagerDelphi\SheduleManager.dproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.420,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.794,=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.244,D:\_sources\SheduleManagerDelphi\Unit1.pas=D:\_sources\SheduleManagerDelphi\ShedulesList.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.646,D:\_sources\SheduleManagerDelphi\Shedule.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.660,=C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.pas=D:\_sources\SheduleManagerDelphi\Main.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.761,D:\_sources\SheduleManagerDelphi\Dictionaries.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.244,D:\_sources\SheduleManagerDelphi\Unit1.dfm=D:\_sources\SheduleManagerDelphi\ShedulesList.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.135,D:\_sources\SheduleManagerDelphi\Unit1.dfm=D:\_sources\SheduleManagerDelphi\MainData.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.844,D:\_sources\SheduleManagerDelphi\Unit1.dfm=D:\_sources\SheduleManagerDelphi\DictionariesEdit.dfm</Transaction>
     <Transaction>1899.12.30 00:00:00.000.806,D:\_sources\SheduleManagerDelphi\SheduleListEdit.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.760,D:\_sources\SheduleManagerDelphi\Dictionaries.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.dfm=D:\_sources\SheduleManagerDelphi\Main.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.761,D:\_sources\SheduleManagerDelphi\Dictionaries.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.646,D:\_sources\SheduleManagerDelphi\Shedule.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
     <Transaction>1899.12.30 00:00:00.000.806,D:\_sources\SheduleManagerDelphi\SheduleListEdit.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.646,D:\_sources\SheduleManagerDelphi\Shedule.dfm=D:\_sources\SheduleManagerDelphi\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.646,D:\_sources\SheduleManagerDelphi\Shedule.pas=D:\_sources\SheduleManagerDelphi\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.962,C:\Users\Работа\Documents\RAD Studio\Projects\Unit1.dfm=D:\_sources\SheduleManagerDelphi\Main.dfm</Transaction>
   </Transactions>
 </BorlandProject>
