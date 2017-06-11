@@ -215,7 +215,7 @@ end;
 
 procedure TfrmDictionaries.RecordEdit(cxView : TcxGridDBTableView);
 var
-  i : integer;
+  i, formWidth : integer;
   edEdit : TEdit;
   tTime : TMaskEdit;
   btnSave, btnCancel : TButton;
@@ -276,6 +276,18 @@ begin
   btnCancel.Left := btnSave.Width + 20;
   btnCancel.Top := (cxView.ColumnCount+1) * 25 + 10;
   btnCancel.OnClick := btnCancelClick;
+
+  formWidth := 10;
+  for i := 0 to frmEdit.ComponentCount - 1 do
+  begin
+    if (frmEdit.Components[i] is TEdit) then
+      if (frmEdit.Components[i] as TEdit).Left + (frmEdit.Components[i] as TEdit).Width > formWidth then
+        formWidth := (frmEdit.Components[i] as TEdit).Left + (frmEdit.Components[i] as TEdit).Width
+    else if (frmEdit.Components[i] as TMaskEdit).Left + (frmEdit.Components[i] as TMaskEdit).Width > formWidth then
+        formWidth := (frmEdit.Components[i] as TMaskEdit).Left + (frmEdit.Components[i] as TMaskEdit).Width
+  end;
+  frmEdit.Width := formWidth;
+
   frmEdit.ShowModal;
 end;
 
@@ -486,6 +498,7 @@ procedure TfrmDictionaries.v_WeeksCellDblClick(Sender: TcxCustomGridTableView;
   AShift: TShiftState; var AHandled: Boolean);
 begin
   RecordEdit((cxGrid2.ActiveView as TcxGridDBTableView));
+
 end;
 
 end.
