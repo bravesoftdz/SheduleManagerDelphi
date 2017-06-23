@@ -13,7 +13,10 @@ uses
   dxSkinPumpkin, dxSkinSeven, dxSkinSharp, dxSkinSilver, dxSkinSpringTime,
   dxSkinStardust, dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine,
   dxSkinXmas2008Blue, dxSkinsdxBarPainter, dxBar, cxClasses, ADODB, DB, cxTextEdit,
-  StdCtrls, cxGridDBTableView;
+  StdCtrls, cxGridDBTableView, AdvOfficeTabSet, AdvOfficeTabSetStylers,
+  cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
+  cxEdit, cxMaskEdit, cxButtonEdit, cxDropDownEdit, cxLookupEdit,
+  cxDBLookupEdit, cxDBLookupComboBox, Menus, cxButtons;
 
 type
   TfrmMain = class(TForm)
@@ -28,6 +31,11 @@ type
     btnEdit: TdxBarButton;
     btnDelete: TdxBarButton;
     btnInsert: TdxBarButton;
+    dxBarLargeButton1: TdxBarLargeButton;
+    dxBarSubItem1: TdxBarSubItem;
+    dxBarButton2: TdxBarButton;
+    AdvOfficeMDITabSet1: TAdvOfficeMDITabSet;
+    AdvOfficeTabSetOfficeStyler1: TAdvOfficeTabSetOfficeStyler;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -39,12 +47,14 @@ type
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnInsertClick(Sender: TObject);
-
+    procedure dxBarLargeButton1Click(Sender: TObject);
+    procedure dxBarButton2Click(Sender: TObject);
   private
-     iButtonsCount:integer;
+    iButtonsCount:integer;
+    act: Integer;
     procedure dxBarButtonClick(Sender: TObject);
   public
-    { Public declarations }
+    fileType: Integer;
   end;
 
 var
@@ -54,7 +64,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, ShedulesList, Dictionaries, DictionariesEdit;
+uses MainData, ShedulesList, Dictionaries, DictionariesEdit, Wait, Dict, DictType, Load;
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 begin
@@ -87,20 +97,26 @@ begin
   if (DM.OpenFileDialog.Execute()) then
     if (DM.OpenFileDialog.Files.Count > 0) then
     begin
+      frmWait.Show;
+      Application.ProcessMessages;
       for i := 1 to DM.OpenFileDialog.Files.Count do
       begin
+        Application.ProcessMessages;
         FilePath := DM.OpenFileDialog.FileName;
         try
           sp_LoadFileShedule := TADOStoredProc.Create(nil);
           sp_LoadFileShedule.Connection := DM.ADOConnection;
           sp_LoadFileShedule.Active := False;
-          sp_LoadFileShedule.ProcedureName := 'p_SheduleParse';
+          sp_LoadFileShedule.ProcedureName := 'p_Shedule_Parse';
           sp_LoadFileShedule.Parameters.Clear;
           sp_LoadFileShedule.Parameters.CreateParameter('@FilePath', ftString, pdInput, 1024, 0);
           sp_LoadFileShedule.Parameters.ParamValues['@FilePath'] := FilePath;
           sp_LoadFileShedule.ExecProc;
+          Application.ProcessMessages;
         finally
           sp_LoadFileShedule.Free;
+          Application.ProcessMessages;
+          frmWait.Close;
         end;
       end;
       ShowMessage('Загрузка завершена');
@@ -141,9 +157,21 @@ begin
   ShowMessage(IntToStr(ADOQuery1.RecordCount));
   end;
   }
+  if (frmWait = nil) then Application.CreateForm(TfrmWait, frmWait);
+  if frmWait.Showing then frmWait.Close
+  else frmWait.Show;
 
 
 
+
+
+end;
+
+procedure TfrmMain.dxBarButton2Click(Sender: TObject);
+begin
+  if (frmDictType = nil) then Application.CreateForm(TfrmDictType, frmDictType);
+  AdvOfficeMDITabSet1.AddTab(frmDictType);
+  frmDictType.Show;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -238,5 +266,16 @@ begin
   if Assigned(lWinControl) and (lWinControl is TForm) then
     TForm(lWinControl).BringToFront;
 end;
+
+procedure TfrmMain.dxBarLargeButton1Click(Sender: TObject);
+begin
+  fileType := 2;
+  Application.CreateForm(TfrmLoad, frmLoad);
+end;
+
+
+
+
+
 
 end.

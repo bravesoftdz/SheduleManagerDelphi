@@ -8,7 +8,15 @@ uses
   Shedule in 'Shedule.pas' {frmShedule},
   SheduleListEdit in 'SheduleListEdit.pas' {frmSheduleListEdit},
   Dictionaries in 'Dictionaries.pas' {frmDictionaries},
-  DictionariesEdit in 'DictionariesEdit.pas' {frmDictionariesEdit};
+  DictionariesEdit in 'DictionariesEdit.pas' {frmDictionariesEdit},
+  Wait in 'Wait.pas' {frmWait},
+  Dict in 'Dict.pas' {frmDict},
+  DictTypeEdit in 'DictTypeEdit.pas' {frmDictTypeEdit},
+  DictType in 'DictType.pas' {frmDictType},
+  DictColumns in 'DictColumns.pas' {frmDictColumns},
+  DictColumnsEdit in 'DictColumnsEdit.pas' {frmDictColumnsEdit},
+  DictEdit in 'DictEdit.pas' {frmDictEdit},
+  Load in 'Load.pas' {frmLoad};
 
 {$R *.res}
 

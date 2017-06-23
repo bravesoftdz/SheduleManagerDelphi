@@ -66,6 +66,30 @@
 			<DCCReference Include="DictionariesEdit.pas">
 				<Form>frmDictionariesEdit</Form>
 			</DCCReference>
+			<DCCReference Include="Wait.pas">
+				<Form>frmWait</Form>
+			</DCCReference>
+			<DCCReference Include="Dict.pas">
+				<Form>frmDict</Form>
+			</DCCReference>
+			<DCCReference Include="DictTypeEdit.pas">
+				<Form>frmDictTypeEdit</Form>
+			</DCCReference>
+			<DCCReference Include="DictType.pas">
+				<Form>frmDictType</Form>
+			</DCCReference>
+			<DCCReference Include="DictColumns.pas">
+				<Form>frmDictColumns</Form>
+			</DCCReference>
+			<DCCReference Include="DictColumnsEdit.pas">
+				<Form>frmDictColumnsEdit</Form>
+			</DCCReference>
+			<DCCReference Include="DictEdit.pas">
+				<Form>frmDictEdit</Form>
+			</DCCReference>
+			<DCCReference Include="Load.pas">
+				<Form>frmLoad</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -91,7 +115,7 @@
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
 						<VersionInfo Name="Release">0</VersionInfo>
-						<VersionInfo Name="Build">0</VersionInfo>
+						<VersionInfo Name="Build">1</VersionInfo>
 						<VersionInfo Name="Debug">False</VersionInfo>
 						<VersionInfo Name="PreRelease">False</VersionInfo>
 						<VersionInfo Name="Special">False</VersionInfo>
@@ -103,7 +127,7 @@
 					<VersionInfoKeys>
 						<VersionInfoKeys Name="CompanyName"/>
 						<VersionInfoKeys Name="FileDescription"/>
-						<VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+						<VersionInfoKeys Name="FileVersion">1.0.0.1</VersionInfoKeys>
 						<VersionInfoKeys Name="InternalName"/>
 						<VersionInfoKeys Name="LegalCopyright"/>
 						<VersionInfoKeys Name="LegalTrademarks"/>
@@ -125,6 +149,7 @@
 				<Platforms>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
+				<ModelSupport>False</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

@@ -17,7 +17,6 @@ type
     sp_AcademicYears: TADOStoredProc;
     sp_AcademicYearsAcademic_Years_ID: TAutoIncField;
     sp_AcademicYearsAcademicYears: TStringField;
-    frxReport: TfrxReport;
     ADOStoredProc1: TADOStoredProc;
     sp_AcademicYearsYear_Begin: TIntegerField;
     sp_AcademicYearsYear_End: TIntegerField;

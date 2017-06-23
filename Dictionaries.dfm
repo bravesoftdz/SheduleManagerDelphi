@@ -109,7 +109,7 @@ object frmDictionaries: TfrmDictionaries
       PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
       OnCellDblClick = v_DaysCellDblClick
-      DataController.DataSource = ds_Days
+      DataController.DataSource = ds_DaysType
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -209,11 +209,11 @@ object frmDictionaries: TfrmDictionaries
         DataBinding.FieldName = 'Symbol'
       end
     end
-    object v_Semestrs: TcxGridDBTableView
+    object v_SemestrsType: TcxGridDBTableView
       PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
-      OnCellDblClick = v_SemestrsCellDblClick
-      DataController.DataSource = ds_Semestrs
+      OnCellDblClick = v_SemestrsTypeCellDblClick
+      DataController.DataSource = ds_SemestrsType
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -221,10 +221,10 @@ object frmDictionaries: TfrmDictionaries
       OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
-      object v_SemestrsSemestrs_ID: TcxGridDBColumn
+      object v_SemestrsTypeSemestrs_ID: TcxGridDBColumn
         DataBinding.FieldName = 'Semestrs_ID'
       end
-      object v_SemestrsName: TcxGridDBColumn
+      object v_SemestrsTypeName: TcxGridDBColumn
         DataBinding.FieldName = 'Name'
       end
     end
@@ -266,11 +266,11 @@ object frmDictionaries: TfrmDictionaries
         DataBinding.FieldName = 'Name'
       end
     end
-    object v_Weeks: TcxGridDBTableView
+    object v_WeeksType: TcxGridDBTableView
       PopupMenu = popupDictionaries
       NavigatorButtons.ConfirmDelete = False
-      OnCellDblClick = v_WeeksCellDblClick
-      DataController.DataSource = ds_Weeks
+      OnCellDblClick = v_WeeksTypeCellDblClick
+      DataController.DataSource = ds_Weeks_Type
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
@@ -278,14 +278,72 @@ object frmDictionaries: TfrmDictionaries
       OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
       OptionsView.GroupByBox = False
-      object v_WeeksWeeks_ID: TcxGridDBColumn
-        DataBinding.FieldName = 'Weeks_ID'
+      object v_WeeksTypeWeeks_Type_ID: TcxGridDBColumn
+        DataBinding.FieldName = 'Weeks_Type_ID'
       end
-      object v_WeeksName: TcxGridDBColumn
+      object v_WeeksTypeName: TcxGridDBColumn
         DataBinding.FieldName = 'Name'
       end
-      object v_WeeksSymbol: TcxGridDBColumn
+      object v_WeeksTypeSymbol: TcxGridDBColumn
         DataBinding.FieldName = 'Symbol'
+      end
+    end
+    object v_Semestrs: TcxGridDBBandedTableView
+      NavigatorButtons.ConfirmDelete = False
+      DataController.DataSource = ds_Semestrs
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      Bands = <
+        item
+        end>
+      object v_SemestrsSemestrs_ID: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Semestrs_ID'
+        Position.BandIndex = 0
+        Position.ColIndex = 0
+        Position.RowIndex = 0
+      end
+      object v_SemestrsAcademic_Years_ID: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Academic_Years_ID'
+        Position.BandIndex = 0
+        Position.ColIndex = 1
+        Position.RowIndex = 0
+      end
+      object v_SemestrsAcademic_Years: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Academic_Years'
+        Position.BandIndex = 0
+        Position.ColIndex = 2
+        Position.RowIndex = 0
+      end
+      object v_SemestrsNumber: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Number'
+        Position.BandIndex = 0
+        Position.ColIndex = 3
+        Position.RowIndex = 0
+      end
+      object v_SemestrsDate_Begin: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Date_Begin'
+        Position.BandIndex = 0
+        Position.ColIndex = 4
+        Position.RowIndex = 0
+      end
+      object v_SemestrsDate_End: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Date_End'
+        Position.BandIndex = 0
+        Position.ColIndex = 5
+        Position.RowIndex = 0
+      end
+      object v_SemestrsSemestrs_Type_ID: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Semestrs_Type_ID'
+        Position.BandIndex = 0
+        Position.ColIndex = 6
+        Position.RowIndex = 0
+      end
+      object v_SemestrsSemestrs_Type: TcxGridDBBandedColumn
+        DataBinding.FieldName = 'Semestrs_Type'
+        Position.BandIndex = 0
+        Position.ColIndex = 7
+        Position.RowIndex = 0
       end
     end
     object cxGrid2Level1: TcxGridLevel
@@ -370,18 +428,18 @@ object frmDictionaries: TfrmDictionaries
       Size = 11
     end
   end
-  object sp_Days: TADOStoredProc
+  object sp_DaysType: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Days;1'
+    ProcedureName = 'p_Days_Type;1'
     Parameters = <>
     Left = 256
     Top = 120
-    object sp_DaysDays_ID: TAutoIncField
-      FieldName = 'Days_ID'
+    object sp_DaysTypeDays_Type_ID: TAutoIncField
+      FieldName = 'Days_Type_ID'
       ReadOnly = True
     end
-    object sp_DaysName: TStringField
+    object sp_DaysTypeName: TStringField
       FieldName = 'Name'
       Size = 16
     end
@@ -461,18 +519,18 @@ object frmDictionaries: TfrmDictionaries
       Size = 8
     end
   end
-  object sp_Semestrs: TADOStoredProc
+  object sp_SemestrsType: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Semestrs;1'
+    ProcedureName = 'p_Semestrs_Type;1'
     Parameters = <>
     Left = 256
     Top = 360
-    object sp_SemestrsSemestrs_ID: TAutoIncField
+    object sp_SemestrsTypeSemestrs_ID: TAutoIncField
       FieldName = 'Semestrs_ID'
       ReadOnly = True
     end
-    object sp_SemestrsName: TStringField
+    object sp_SemestrsTypeName: TStringField
       FieldName = 'Name'
       Size = 16
     end
@@ -509,8 +567,8 @@ object frmDictionaries: TfrmDictionaries
       Size = 512
     end
   end
-  object ds_Days: TDataSource
-    DataSet = sp_Days
+  object ds_DaysType: TDataSource
+    DataSet = sp_DaysType
     Left = 360
     Top = 120
   end
@@ -534,8 +592,8 @@ object frmDictionaries: TfrmDictionaries
     Left = 360
     Top = 312
   end
-  object ds_Semestrs: TDataSource
-    DataSet = sp_Semestrs
+  object ds_SemestrsType: TDataSource
+    DataSet = sp_SemestrsType
     Left = 360
     Top = 360
   end
@@ -549,28 +607,28 @@ object frmDictionaries: TfrmDictionaries
     Left = 360
     Top = 456
   end
-  object sp_Weeks: TADOStoredProc
+  object sp_Weeks_Type: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Weeks;1'
+    ProcedureName = 'p_Weeks_Type;1'
     Parameters = <>
     Left = 456
     Top = 24
-    object sp_WeeksWeeks_ID: TAutoIncField
-      FieldName = 'Weeks_ID'
+    object sp_Weeks_TypeWeeks_Type_ID: TAutoIncField
+      FieldName = 'Weeks_Type_ID'
       ReadOnly = True
     end
-    object sp_WeeksName: TStringField
+    object sp_Weeks_TypeName: TStringField
       FieldName = 'Name'
       Size = 16
     end
-    object sp_WeeksSymbol: TStringField
+    object sp_Weeks_TypeSymbol: TStringField
       FieldName = 'Symbol'
       Size = 2
     end
   end
-  object ds_Weeks: TDataSource
-    DataSet = sp_Weeks
+  object ds_Weeks_Type: TDataSource
+    DataSet = sp_Weeks_Type
     Left = 560
     Top = 24
   end
@@ -592,5 +650,53 @@ object frmDictionaries: TfrmDictionaries
     UseOwnFont = False
     Left = 464
     Top = 456
+  end
+  object DataSource1: TDataSource
+    DataSet = sp_Weeks_Type
+    Left = 560
+    Top = 152
+  end
+  object sp_Semestrs: TADOStoredProc
+    Connection = DM.ADOConnection
+    CursorType = ctStatic
+    ProcedureName = 'p_Semestrs;1'
+    Parameters = <>
+    Left = 456
+    Top = 80
+    object sp_SemestrsSemestrs_ID: TAutoIncField
+      FieldName = 'Semestrs_ID'
+      ReadOnly = True
+    end
+    object sp_SemestrsAcademic_Years_ID: TIntegerField
+      FieldName = 'Academic_Years_ID'
+    end
+    object sp_SemestrsAcademic_Years: TStringField
+      FieldName = 'Academic_Years'
+      ReadOnly = True
+      Size = 9
+    end
+    object sp_SemestrsNumber: TIntegerField
+      FieldName = 'Number'
+    end
+    object sp_SemestrsDate_Begin: TWideStringField
+      FieldName = 'Date_Begin'
+      Size = 10
+    end
+    object sp_SemestrsDate_End: TWideStringField
+      FieldName = 'Date_End'
+      Size = 10
+    end
+    object sp_SemestrsSemestrs_Type_ID: TIntegerField
+      FieldName = 'Semestrs_Type_ID'
+    end
+    object sp_SemestrsSemestrs_Type: TStringField
+      FieldName = 'Semestrs_Type'
+      Size = 16
+    end
+  end
+  object ds_Semestrs: TDataSource
+    DataSet = sp_Semestrs
+    Left = 560
+    Top = 80
   end
 end
