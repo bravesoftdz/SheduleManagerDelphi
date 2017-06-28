@@ -42,6 +42,8 @@ type
     btn_Calendar: TdxBarLargeButton;
     frxReport1: TfrxReport;
     frxDialogControls1: TfrxDialogControls;
+    btn_Reports: TdxBarLargeButton;
+    pm_Reports: TdxBarPopupMenu;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
@@ -56,6 +58,7 @@ type
     procedure dxListReportsClick(Sender: TObject);
     procedure PrepareReport(filePath: String);
     procedure btn_FormListClick(Sender: TObject);
+    procedure btn_CalendarClick(Sender: TObject);
   private
     iButtonsCount:integer;
     act: Integer;
@@ -75,7 +78,8 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, ShedulesList, Dictionaries, DictionariesEdit, Wait, Dict, DictType, Load, FormsList;
+uses MainData, ShedulesList, Dictionaries, DictionariesEdit, Wait, Dict, DictType, Load, FormsList,
+  Calendar;
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 begin
@@ -141,6 +145,12 @@ begin
       end;
     end;
     }
+end;
+
+procedure TfrmMain.btn_CalendarClick(Sender: TObject);
+begin
+  if (frmCalendar = nil) then Application.CreateForm(TfrmCalendar, frmCalendar);
+  AdvOfficeMDITabSet1.AddTab(frmCalendar);
 end;
 
 procedure TfrmMain.btn_ExitClick(Sender: TObject);
@@ -280,6 +290,7 @@ begin
   begin
      repeat
        sl.Add(ChangeFileExt(sr.Name, ''));
+       pm_Reports.ItemOptions
      until FindNext(sr) <> 0;
      FindClose(sr);
      dxListReports.Items := sl;

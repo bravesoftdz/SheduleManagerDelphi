@@ -42,24 +42,30 @@ object frmShedulesList: TfrmShedulesList
         Visible = False
       end
       object cxGridShedulesListDBTableView1FileName: TcxGridDBColumn
+        Caption = #1048#1084#1103' '#1092#1072#1081#1083#1072
         DataBinding.FieldName = 'FileName'
         Width = 150
       end
       object cxGridShedulesListDBTableView1FileDate: TcxGridDBColumn
+        Caption = #1044#1072#1090#1072
         DataBinding.FieldName = 'FileDate'
         Width = 100
       end
       object cxGridShedulesListDBTableView1AcademicYears: TcxGridDBColumn
+        Caption = #1059#1095#1077#1073#1085#1099#1081' '#1075#1086#1076
         DataBinding.FieldName = 'AcademicYears'
       end
       object cxGridShedulesListDBTableView1Institut: TcxGridDBColumn
+        Caption = #1048#1085#1089#1090#1080#1090#1091#1090
         DataBinding.FieldName = 'Institut'
         Width = 250
       end
       object cxGridShedulesListDBTableView1Semestr: TcxGridDBColumn
+        Caption = #1057#1077#1084#1077#1089#1090#1088
         DataBinding.FieldName = 'Semestr'
       end
       object cxGridShedulesListDBTableView1Is_Actual: TcxGridDBColumn
+        Caption = #1040#1082#1090#1091#1072#1083#1100#1085#1086#1089#1090#1100
         DataBinding.FieldName = 'Is_Actual'
         PropertiesClassName = 'TcxCheckBoxProperties'
       end

@@ -17,7 +17,7 @@ uses
   DictColumnsEdit in 'DictColumnsEdit.pas' {frmDictColumnsEdit},
   DictEdit in 'DictEdit.pas' {frmDictEdit},
   Load in 'Load.pas' {frmLoad},
-  Calendar in 'Calendar.pas' {Form1},
+  Calendar in 'Calendar.pas' {frmCalendar},
   FormsList in 'FormsList.pas' {frmFormsList},
   Form in 'Form.pas' {frmForm},
   FormEdit in 'FormEdit.pas' {frmFormEdit};

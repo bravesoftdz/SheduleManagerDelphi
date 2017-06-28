@@ -91,7 +91,7 @@
 				<Form>frmLoad</Form>
 			</DCCReference>
 			<DCCReference Include="Calendar.pas">
-				<Form>Form1</Form>
+				<Form>frmCalendar</Form>
 			</DCCReference>
 			<DCCReference Include="FormsList.pas">
 				<Form>frmFormsList</Form>

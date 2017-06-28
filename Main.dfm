@@ -3,7 +3,7 @@ object frmMain: TfrmMain
   Top = 0
   Caption = 'MOSIT Shedule'
   ClientHeight = 516
-  ClientWidth = 757
+  ClientWidth = 771
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,7 +20,7 @@ object frmMain: TfrmMain
   object AdvOfficeMDITabSet1: TAdvOfficeMDITabSet
     Left = 0
     Top = 70
-    Width = 757
+    Width = 771
     Height = 27
     AdvOfficeTabSetStyler = AdvOfficeTabSetOfficeStyler1
     Align = alTop
@@ -314,6 +314,7 @@ object frmMain: TfrmMain
     ShowCloseOnNonSelectedTabs = True
     ShowHint = True
     TabSettings.Rounding = 0
+    ExplicitWidth = 757
   end
   object dxBarManager: TdxBarManager
     Font.Charset = DEFAULT_CHARSET
@@ -381,9 +382,10 @@ object frmMain: TfrmMain
         end
         item
           Visible = True
-          ItemName = 'dxListReports'
+          ItemName = 'btn_Reports'
         end
         item
+          BeginGroup = True
           Visible = True
           ItemName = 'btn_Calendar'
         end
@@ -448,7 +450,7 @@ object frmMain: TfrmMain
     object dxReportList: TdxBarSubItem
       Caption = #1054#1090#1095#1077#1090#1099
       Category = 0
-      Visible = ivAlways
+      Visible = ivNever
       ItemLinks = <
         item
           Visible = True
@@ -481,6 +483,7 @@ object frmMain: TfrmMain
       Caption = #1054#1090#1095#1077#1090#1099
       Category = 0
       Visible = ivAlways
+      ImageIndex = 6
       LargeGlyph.Data = {
         36240000424D3624000000000000360000002800000030000000300000000100
         2000000000000024000000000000000000000000000000000000000000000000
@@ -789,6 +792,16 @@ object frmMain: TfrmMain
       Hint = #1050#1072#1083#1077#1085#1076#1072#1088#1100
       Visible = ivAlways
       LargeImageIndex = 0
+      OnClick = btn_CalendarClick
+    end
+    object btn_Reports: TdxBarLargeButton
+      Caption = #1054#1090#1095#1077#1090#1099
+      Category = 0
+      Hint = #1054#1090#1095#1077#1090#1099
+      Visible = ivAlways
+      ButtonStyle = bsDropDown
+      CloseSubMenuOnClick = False
+      LargeImageIndex = 6
     end
     object btnEdit: TdxBarButton
       Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1090#1100
@@ -916,5 +929,12 @@ object frmMain: TfrmMain
   object frxDialogControls1: TfrxDialogControls
     Left = 24
     Top = 408
+  end
+  object pm_Reports: TdxBarPopupMenu
+    BarManager = dxBarManager
+    ItemLinks = <>
+    UseOwnFont = False
+    Left = 120
+    Top = 456
   end
 end
