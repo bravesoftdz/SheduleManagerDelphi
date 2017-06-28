@@ -14,8 +14,6 @@ object frmDictionaries: TfrmDictionaries
   OldCreateOrder = False
   Visible = True
   WindowState = wsMaximized
-  OnActivate = FormActivate
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object gr_DictionariesList: TcxGrid

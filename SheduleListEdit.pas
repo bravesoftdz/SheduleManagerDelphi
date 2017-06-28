@@ -43,6 +43,14 @@ type
     sp_Semestrs: TADOStoredProc;
     ds_Semestrs: TDataSource;
     sp_SaveSheduleList: TADOStoredProc;
+    sp_AcademicYearsКод: TIntegerField;
+    sp_AcademicYearsНаименование: TStringField;
+    sp_AcademicYearsГодначала: TIntegerField;
+    sp_AcademicYearsГодокончания: TIntegerField;
+    sp_InstitutКод: TIntegerField;
+    sp_InstitutНаименование: TStringField;
+    sp_SemestrsКод: TIntegerField;
+    sp_SemestrsНаименование: TStringField;
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
   private

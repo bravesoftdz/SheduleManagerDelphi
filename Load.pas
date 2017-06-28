@@ -41,7 +41,6 @@ var
 begin
   try
     FileType := frmMain.fileType;
-    Application.CreateForm(TForm, frmLoad);
     if FileType = 1 then frmLoad.Caption := 'Загрузка файла расписания'
     else if FileType = 2 then frmLoad.Caption := 'Загрузка файла "Форма 101"';
 
@@ -67,38 +66,41 @@ begin
 
     topPos := topPos + btnEdPath.Height + 20;
 
-    lbText := TLabel.Create(nil);
-    lbText.Name := 'lblAcadem';
-    lbText.Caption := 'Учебный год:';
-    lbText.Left := 10;
-    lbText.Top := topPos;
-    lbText.Width := 100;
-    lbText.Parent := frmLoad;
+    if (FileType = 2) then
+    begin
+      lbText := TLabel.Create(nil);
+      lbText.Name := 'lblAcadem';
+      lbText.Caption := 'Учебный год:';
+      lbText.Left := 10;
+      lbText.Top := topPos;
+      lbText.Width := 100;
+      lbText.Parent := frmLoad;
 
-    sp_Academ := TADOStoredProc.Create(frmLoad);
-    sp_Academ.Name := 'sp_Academ';
-    sp_Academ.Close;
-    sp_Academ.Connection := DM.ADOConnection;
-    sp_Academ.ProcedureName := 'dbo.p_Dict';
-    sp_Academ.Parameters.Clear;
-    sp_Academ.Parameters.Refresh;
-    sp_Academ.Parameters.ParamByName('@Dict_Type_ID').Value := 1;
-    sp_Academ.Open;
+      sp_Academ := TADOStoredProc.Create(frmLoad);
+      sp_Academ.Name := 'sp_Academ';
+      sp_Academ.Close;
+      sp_Academ.Connection := DM.ADOConnection;
+      sp_Academ.ProcedureName := 'dbo.p_Dict';
+      sp_Academ.Parameters.Clear;
+      sp_Academ.Parameters.Refresh;
+      sp_Academ.Parameters.ParamByName('@Dict_Type_ID').Value := 1;
+      sp_Academ.Open;
 
-    ds_Academ := TDataSource.Create(frmLoad);
-    ds_Academ.Name := 'ds_Academ';
-    ds_Academ.DataSet := sp_Academ;
+      ds_Academ := TDataSource.Create(frmLoad);
+      ds_Academ.Name := 'ds_Academ';
+      ds_Academ.DataSet := sp_Academ;
 
-    lookupCb := TcxLookupComboBox.Create(frmLoad);
-    lookupCb.Name := 'lookupAY';
-    lookupCb.Parent := frmLoad;
-    lookupCb.Left := leftPos;
-    lookupCb.Top := topPos;
-    topPos := topPos + lookupCb.Height + 20;
-    lookupCb.Width := 200;
-    lookupCb.Properties.ListSource := ds_Academ;
-    lookupCb.Properties.KeyFieldNames := 'Код';
-    lookupCb.Properties.ListFieldNames := 'Наименование';
+      lookupCb := TcxLookupComboBox.Create(frmLoad);
+      lookupCb.Name := 'lookupAY';
+      lookupCb.Parent := frmLoad;
+      lookupCb.Left := leftPos;
+      lookupCb.Top := topPos;
+      topPos := topPos + lookupCb.Height + 20;
+      lookupCb.Width := 200;
+      lookupCb.Properties.ListSource := ds_Academ;
+      lookupCb.Properties.KeyFieldNames := 'Код';
+      lookupCb.Properties.ListFieldNames := 'Наименование';
+    end;
 
     btn := TcxButton.Create(nil);
     btn.Name := 'btnSave';
@@ -116,7 +118,9 @@ begin
     btn.Left := 185;
     btn.Parent := frmLoad;
     btn.Caption := 'Отмена';
+    topPos := topPos + btn.Height + 20;
 
+    frmLoad.ClientHeight := topPos;
     frmLoad.ShowModal;
   finally
     frmLoad.Free;
@@ -148,9 +152,10 @@ begin
         FilePath := DM.OpenFileDialog.FileName;
         try
           sp_LoadFileForm := TADOStoredProc.Create(nil);
+          sp_LoadFileForm.Close;
           sp_LoadFileForm.Connection := DM.ADOConnection;
-          sp_LoadFileForm.Active := False;
-          sp_LoadFileForm.ProcedureName := 'p_Form_Parse';
+          if frmMain.fileType = 1 then sp_LoadFileForm.ProcedureName := 'dbo.p_Shedule_Parse'
+          else if frmMain.fileType = 2 then sp_LoadFileForm.ProcedureName := 'dbo.p_Form_Parse';
           sp_LoadFileForm.Parameters.Clear;
           sp_LoadFileForm.Parameters.Refresh;
           sp_LoadFileForm.Parameters.ParamByName('@FilePath').Value := FilePath;
@@ -165,7 +170,7 @@ begin
       end;
       ShowMessage('Загрузка завершена');
     end;
-
+    frmLoad.Close;
 end;
 
 

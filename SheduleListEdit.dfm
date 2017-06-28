@@ -1,9 +1,9 @@
-object frmSheduleListEdit: TfrmSheduleListEdit
+﻿object frmSheduleListEdit: TfrmSheduleListEdit
   Left = 0
   Top = 0
-  Caption = 'frmSheduleListEdit'
+  Caption = #1056#1077#1076#1072#1082#1090#1080#1088#1086#1074#1072#1085#1080#1077' '#1088#1072#1089#1087#1080#1089#1072#1085#1080#1103
   ClientHeight = 303
-  ClientWidth = 406
+  ClientWidth = 260
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,18 +11,20 @@ object frmSheduleListEdit: TfrmSheduleListEdit
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 13
   object dxLayoutControl1: TdxLayoutControl
     Left = 0
     Top = 0
-    Width = 406
+    Width = 260
     Height = 303
     Align = alClient
     TabOrder = 0
     TabStop = False
     ShowDesignSelectors = False
-    ExplicitTop = 8
+    ExplicitTop = -8
+    ExplicitWidth = 445
     object btnCancel: TcxButton
       Left = 133
       Top = 166
@@ -44,11 +46,12 @@ object frmSheduleListEdit: TfrmSheduleListEdit
     object lcb_AcademicYears: TcxLookupComboBox
       Left = 93
       Top = 55
-      Properties.KeyFieldNames = 'Academic_Years_ID'
+      Properties.KeyFieldNames = #1050#1086#1076
       Properties.ListColumns = <
         item
-          FieldName = 'AcademicYears'
+          FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         end>
+      Properties.ListOptions.ShowHeader = False
       Properties.ListSource = ds_AcademicYears
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
@@ -61,11 +64,12 @@ object frmSheduleListEdit: TfrmSheduleListEdit
     object lcb_Institut: TcxLookupComboBox
       Left = 93
       Top = 28
-      Properties.KeyFieldNames = 'Institutes_ID'
+      Properties.KeyFieldNames = #1050#1086#1076
       Properties.ListColumns = <
         item
-          FieldName = 'Name'
+          FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         end>
+      Properties.ListOptions.ShowHeader = False
       Properties.ListSource = ds_Institut
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
@@ -78,11 +82,12 @@ object frmSheduleListEdit: TfrmSheduleListEdit
     object lcb_Semestr: TcxLookupComboBox
       Left = 93
       Top = 82
-      Properties.KeyFieldNames = 'Semestrs_ID'
+      Properties.KeyFieldNames = #1050#1086#1076
       Properties.ListColumns = <
         item
-          FieldName = 'Name'
+          FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
         end>
+      Properties.ListOptions.ShowHeader = False
       Properties.ListSource = ds_Semestrs
       Style.BorderColor = clWindowFrame
       Style.BorderStyle = ebs3D
@@ -156,41 +161,110 @@ object frmSheduleListEdit: TfrmSheduleListEdit
   object sp_AcademicYears: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Academic_Years;1'
-    Parameters = <>
-    Left = 272
-    Top = 8
+    ProcedureName = 'p_Dict;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@Dict_Type_ID'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 1
+      end>
+    Left = 16
+    Top = 216
+    object sp_AcademicYearsКод: TIntegerField
+      FieldName = #1050#1086#1076
+    end
+    object sp_AcademicYearsНаименование: TStringField
+      FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      Size = 255
+    end
+    object sp_AcademicYearsГодначала: TIntegerField
+      FieldName = #1043#1086#1076' '#1085#1072#1095#1072#1083#1072
+    end
+    object sp_AcademicYearsГодокончания: TIntegerField
+      FieldName = #1043#1086#1076' '#1086#1082#1086#1085#1095#1072#1085#1080#1103
+    end
   end
   object ds_AcademicYears: TDataSource
     DataSet = sp_AcademicYears
-    Left = 272
-    Top = 56
+    Left = 16
+    Top = 264
   end
   object ds_Institut: TDataSource
     DataSet = sp_Institut
-    Left = 272
-    Top = 104
+    Left = 80
+    Top = 264
   end
   object sp_Institut: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Institutes;1'
-    Parameters = <>
-    Left = 272
-    Top = 152
+    ProcedureName = 'p_Dict;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@Dict_Type_ID'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 15
+      end>
+    Left = 80
+    Top = 216
+    object sp_InstitutКод: TIntegerField
+      FieldName = #1050#1086#1076
+    end
+    object sp_InstitutНаименование: TStringField
+      FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      Size = 255
+    end
   end
   object sp_Semestrs: TADOStoredProc
     Connection = DM.ADOConnection
     CursorType = ctStatic
-    ProcedureName = 'p_Semestrs;1'
-    Parameters = <>
-    Left = 272
-    Top = 248
+    ProcedureName = 'p_Dict;1'
+    Parameters = <
+      item
+        Name = '@RETURN_VALUE'
+        DataType = ftInteger
+        Direction = pdReturnValue
+        Precision = 10
+        Value = 0
+      end
+      item
+        Name = '@Dict_Type_ID'
+        Attributes = [paNullable]
+        DataType = ftInteger
+        Precision = 10
+        Value = 3
+      end>
+    Left = 144
+    Top = 216
+    object sp_SemestrsКод: TIntegerField
+      FieldName = #1050#1086#1076
+    end
+    object sp_SemestrsНаименование: TStringField
+      FieldName = #1053#1072#1080#1084#1077#1085#1086#1074#1072#1085#1080#1077
+      Size = 255
+    end
   end
   object ds_Semestrs: TDataSource
     DataSet = sp_Semestrs
-    Left = 272
-    Top = 200
+    Left = 144
+    Top = 264
   end
   object sp_SaveSheduleList: TADOStoredProc
     Connection = DM.ADOConnection
@@ -201,37 +275,43 @@ object frmSheduleListEdit: TfrmSheduleListEdit
         DataType = ftInteger
         Direction = pdReturnValue
         Precision = 10
+        Value = Null
       end
       item
         Name = '@ShedulesID'
         Attributes = [paNullable]
         DataType = ftInteger
         Precision = 10
+        Value = Null
       end
       item
         Name = '@AcademicYearsID'
         Attributes = [paNullable]
         DataType = ftInteger
         Precision = 10
+        Value = Null
       end
       item
         Name = '@InstitutID'
         Attributes = [paNullable]
         DataType = ftInteger
         Precision = 10
+        Value = Null
       end
       item
         Name = '@SemestrID'
         Attributes = [paNullable]
         DataType = ftInteger
         Precision = 10
+        Value = Null
       end
       item
         Name = '@IsActual'
         Attributes = [paNullable]
         DataType = ftBoolean
+        Value = Null
       end>
-    Left = 344
-    Top = 8
+    Left = 192
+    Top = 264
   end
 end

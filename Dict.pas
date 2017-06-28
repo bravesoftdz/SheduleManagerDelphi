@@ -45,7 +45,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, DictTypeEdit, DictType, DictEdit;
+uses MainData, DictTypeEdit, DictType, DictEdit, Main;
 
 procedure TfrmDict.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -90,14 +90,15 @@ end;
 procedure TfrmDict.RecordEdit(act: Integer);
 begin
   try
-    if frmDictEdit = nil then Application.CreateForm(TfrmDictEdit, frmDictEdit);
-    Action := act;
+    if frmDictEdit <> nil then frmDictEdit.Free;
+    frmMain.Action := act;
+    frmMain.DictTypeID := frmDict.DictTypeID;
+    Application.CreateForm(TfrmDictEdit, frmDictEdit);
     frmDictEdit.ShowModal;
   finally
     frmDictEdit.Free;
     frmDictEdit := nil;
   end;
-
 end;
 
 

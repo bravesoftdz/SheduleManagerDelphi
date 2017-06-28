@@ -14,17 +14,15 @@ object frmShedulesList: TfrmShedulesList
   OldCreateOrder = False
   Visible = True
   WindowState = wsMaximized
-  OnActivate = FormActivate
   OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object cxGridShedulesList: TcxGrid
-    Left = 70
+    Left = 0
     Top = 0
-    Width = 564
-    Height = 310
+    Width = 634
+    Height = 365
     Align = alClient
     TabOrder = 0
     object cxGridShedulesListDBTableView1: TcxGridDBTableView
@@ -38,6 +36,7 @@ object frmShedulesList: TfrmShedulesList
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
       OptionsView.ColumnAutoWidth = True
+      OptionsView.GroupByBox = False
       object cxGridShedulesListDBTableView1Shedules_ID: TcxGridDBColumn
         DataBinding.FieldName = 'Shedules_ID'
         Visible = False
@@ -68,15 +67,6 @@ object frmShedulesList: TfrmShedulesList
     object cxGridShedulesListLevel1: TcxGridLevel
       GridView = cxGridShedulesListDBTableView1
     end
-  end
-  object Panel1: TPanel
-    Left = 0
-    Top = 310
-    Width = 634
-    Height = 55
-    Align = alBottom
-    Caption = 'Panel1'
-    TabOrder = 1
   end
   object ds_ShedulesList: TDataSource
     DataSet = sp_ShedulesList
@@ -147,33 +137,10 @@ object frmShedulesList: TfrmShedulesList
     Left = 592
     Top = 320
     DockControlHeights = (
-      70
+      0
       0
       0
       0)
-    object dxBarManager1Bar1: TdxBar
-      Caption = 'LeftBar'
-      CaptionButtons = <>
-      DockedDockingStyle = dsLeft
-      DockedLeft = 0
-      DockedTop = 0
-      DockingStyle = dsLeft
-      FloatLeft = 668
-      FloatTop = 8
-      FloatClientWidth = 0
-      FloatClientHeight = 0
-      ItemLinks = <
-        item
-          Visible = True
-          ItemName = 'btnSave'
-        end>
-      OneOnRow = True
-      RotateWhenVertical = False
-      Row = 0
-      UseOwnFont = False
-      Visible = True
-      WholeRow = True
-    end
     object btnSave: TdxBarButton
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
       Category = 0

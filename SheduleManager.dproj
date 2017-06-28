@@ -90,6 +90,18 @@
 			<DCCReference Include="Load.pas">
 				<Form>frmLoad</Form>
 			</DCCReference>
+			<DCCReference Include="Calendar.pas">
+				<Form>Form1</Form>
+			</DCCReference>
+			<DCCReference Include="FormsList.pas">
+				<Form>frmFormsList</Form>
+			</DCCReference>
+			<DCCReference Include="Form.pas">
+				<Form>frmForm</Form>
+			</DCCReference>
+			<DCCReference Include="FormEdit.pas">
+				<Form>frmFormEdit</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>

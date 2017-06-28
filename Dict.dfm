@@ -2,7 +2,7 @@ object frmDict: TfrmDict
   Left = 0
   Top = 0
   Caption = 'frmDict'
-  ClientHeight = 407
+  ClientHeight = 442
   ClientWidth = 712
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -23,7 +23,7 @@ object frmDict: TfrmDict
     Left = 0
     Top = 0
     Width = 712
-    Height = 407
+    Height = 442
     Align = alClient
     TabOrder = 0
     object gr_DictView: TcxGridDBTableView
@@ -35,6 +35,7 @@ object frmDict: TfrmDict
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsSelection.CellSelect = False
+      OptionsView.ColumnAutoWidth = True
     end
     object gr_DictLevel1: TcxGridLevel
       GridView = gr_DictView

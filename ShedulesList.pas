@@ -23,7 +23,6 @@ type
     cxGridShedulesListDBTableView1: TcxGridDBTableView;
     cxGridShedulesListLevel1: TcxGridLevel;
     cxGridShedulesList: TcxGrid;
-    Panel1: TPanel;
     ds_ShedulesList: TDataSource;
     sp_ShedulesList: TADOStoredProc;
     sp_ShedulesListShedules_ID: TAutoIncField;
@@ -39,7 +38,6 @@ type
     sp_ShedulesListIs_Actual: TBooleanField;
     cxGridShedulesListDBTableView1Is_Actual: TcxGridDBColumn;
     dxBarManager1: TdxBarManager;
-    dxBarManager1Bar1: TdxBar;
     btnSave: TdxBarButton;
     sp_ShedulesListAcademicYears: TStringField;
     cxGridShedulesListDBTableView1AcademicYears: TcxGridDBColumn;
@@ -52,8 +50,7 @@ type
     sp_ShedulesList_SemestrID: TAutoIncField;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormActivate(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+
     procedure cxGridShedulesListDBTableView1KeyDown(Sender: TObject;
       var Key: Word; Shift: TShiftState);
     procedure OpenShedule;
@@ -118,27 +115,19 @@ begin
   frmShedule.sp_Shedule.Parameters.ParamByName('@Shedules_ID').Value :=
     cxGridShedulesListDBTableView1.DataController.DataSource.DataSet.FieldByName('Shedules_ID').AsInteger;
   frmShedule.sp_Shedule.Active := True;
-  frmShedule.Caption := 'Расписание занятий ' + frmShedule.sp_Shedule.FieldByName('InstitutName').AsString
-    + ' на ' + frmShedulesList.sp_ShedulesList.FieldByName('AcademicYears').AsString;
+  frmShedule.Caption := 'Расписание занятий ' + frmShedule.sp_SheduleИнститут.AsString
+    + ' на ' + frmShedulesList.sp_ShedulesListAcademicYears.AsString;
+  frmMain.AdvOfficeMDITabSet1.AddTab(frmShedule);
   frmShedule.Show;
-end;
-
-procedure TfrmShedulesList.FormActivate(Sender: TObject);
-begin
-  frmMain.SetDownFormButton(self);
 end;
 
 procedure TfrmShedulesList.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  frmMain.DeleteFormButton(self);
   Action    := caFree;
   frmShedulesList := nil;
 end;
 
-procedure TfrmShedulesList.FormCreate(Sender: TObject);
-begin
-   frmMain.CreateFormButton(self);
-end;
+
 
 procedure TfrmShedulesList.FormShow(Sender: TObject);
 begin
@@ -149,8 +138,6 @@ end;
 procedure TfrmShedulesList.RecordEdit;
 begin
   if (frmSheduleListEdit = nil) then Application.CreateForm(TfrmSheduleListEdit, frmSheduleListEdit);
-  DM.sp_AcademicYears.Active := False;
-  MainData.DM.sp_AcademicYears.Active := True;
   if (not(frmSheduleListEdit.sp_AcademicYears.Active)) then frmSheduleListEdit.sp_AcademicYears.Active := True;
   if (not(frmSheduleListEdit.sp_Institut.Active)) then frmSheduleListEdit.sp_Institut.Active := True;
   if (not(frmSheduleListEdit.sp_Semestrs.Active)) then frmSheduleListEdit.sp_Semestrs.Active := True;
@@ -159,6 +146,8 @@ begin
   frmSheduleListEdit.lcb_Semestr.EditValue := sp_ShedulesList.FieldByName('_SemestrID').AsInteger;
   frmSheduleListEdit.SheduleID := sp_ShedulesListShedules_ID.AsInteger;
   frmSheduleListEdit.ShowModal;
+  sp_ShedulesList.Close;
+  sp_ShedulesList.Open;
 end;
 
 procedure TfrmShedulesList.RecordDelete();

@@ -16,45 +16,56 @@ uses
   StdCtrls, cxGridDBTableView, AdvOfficeTabSet, AdvOfficeTabSetStylers,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer,
   cxEdit, cxMaskEdit, cxButtonEdit, cxDropDownEdit, cxLookupEdit,
-  cxDBLookupEdit, cxDBLookupComboBox, Menus, cxButtons;
+  cxDBLookupEdit, cxDBLookupComboBox, Menus, cxButtons, frxADOComponents, frxClass,
+  frxDCtrl;
 
 type
   TfrmMain = class(TForm)
     dxBarManager: TdxBarManager;
     dxMainMenuBar1: TdxBar;
     btnLoadSheduleFile: TdxBarLargeButton;
-    ADOQuery1: TADOQuery;
     btn_ShedulesList: TdxBarLargeButton;
-    Bar1: TdxBar;
     btnDictionaries: TdxBarLargeButton;
     dxBarButton1: TdxBarButton;
     btnEdit: TdxBarButton;
     btnDelete: TdxBarButton;
     btnInsert: TdxBarButton;
     dxBarLargeButton1: TdxBarLargeButton;
-    dxBarSubItem1: TdxBarSubItem;
+    dxReportList: TdxBarSubItem;
     dxBarButton2: TdxBarButton;
     AdvOfficeMDITabSet1: TAdvOfficeMDITabSet;
     AdvOfficeTabSetOfficeStyler1: TAdvOfficeTabSetOfficeStyler;
+    btn_Settings: TdxBarLargeButton;
+    btn_Exit: TdxBarLargeButton;
+    dxListReports: TdxBarListItem;
+    btn_FormList: TdxBarLargeButton;
+    btn_Calendar: TdxBarLargeButton;
+    frxReport1: TfrxReport;
+    frxDialogControls1: TfrxDialogControls;
     procedure FormCreate(Sender: TObject);
     procedure btnLoadSheduleFileClick(Sender: TObject);
     procedure dxBarButton1Click(Sender: TObject);
     procedure btn_ShedulesListClick(Sender: TObject);
-    procedure CreateFormButton(form1:TForm);
-    procedure DeleteFormButton(form1:TForm);
-    procedure SetDownFormButton(form1:TForm);
     procedure btnDictionariesClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnInsertClick(Sender: TObject);
     procedure dxBarLargeButton1Click(Sender: TObject);
-    procedure dxBarButton2Click(Sender: TObject);
+    procedure btn_ExitClick(Sender: TObject);
+    procedure btn_SettingsClick(Sender: TObject);
+    procedure dxListReportsClick(Sender: TObject);
+    procedure PrepareReport(filePath: String);
+    procedure btn_FormListClick(Sender: TObject);
   private
     iButtonsCount:integer;
     act: Integer;
     procedure dxBarButtonClick(Sender: TObject);
+    procedure listReportFill(pathDir: String);
   public
     fileType: Integer;
+    ReportsDirPath: String;
+    Action: Integer;
+    DictTypeID: Integer;
   end;
 
 var
@@ -64,7 +75,7 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, ShedulesList, Dictionaries, DictionariesEdit, Wait, Dict, DictType, Load;
+uses MainData, ShedulesList, Dictionaries, DictionariesEdit, Wait, Dict, DictType, Load, FormsList;
 
 procedure TfrmMain.btnDeleteClick(Sender: TObject);
 begin
@@ -73,9 +84,9 @@ end;
 
 procedure TfrmMain.btnDictionariesClick(Sender: TObject);
 begin
-  if (frmDictionaries = nil) then Application.CreateForm(TfrmDictionaries, frmDictionaries);
-  frmDictionaries.sp_DictionariesList.Active := True;
-  frmDictionaries.Show;
+if (frmDictType = nil) then Application.CreateForm(TfrmDictType, frmDictType);
+  AdvOfficeMDITabSet1.AddTab(frmDictType);
+  frmDictType.Show;
 end;
 
 procedure TfrmMain.btnEditClick(Sender: TObject);
@@ -94,6 +105,9 @@ var
   sp_LoadFileShedule : TADOStoredProc;
   i : integer;
 begin
+  fileType := 1;
+  Application.CreateForm(TfrmLoad, frmLoad);
+{
   if (DM.OpenFileDialog.Execute()) then
     if (DM.OpenFileDialog.Files.Count > 0) then
     begin
@@ -126,6 +140,29 @@ begin
         frmShedulesList.sp_ShedulesList.Open;
       end;
     end;
+    }
+end;
+
+procedure TfrmMain.btn_ExitClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmMain.btn_FormListClick(Sender: TObject);
+begin
+  if (frmFormsList = nil) then Application.CreateForm(TfrmFormsList, frmFormsList)
+  else
+  begin
+    frmFormsList.sp_FormsList.Close;
+    frmFormsList.sp_FormsList.Open;
+  end;
+  AdvOfficeMDITabSet1.AddTab(frmFormsList);
+  frmFormsList.Show;
+end;
+
+procedure TfrmMain.btn_SettingsClick(Sender: TObject);
+begin
+  ShowMessage('В разработке...');
 end;
 
 procedure TfrmMain.btn_ShedulesListClick(Sender: TObject);
@@ -136,6 +173,7 @@ begin
     frmShedulesList.sp_ShedulesList.Close;
     frmShedulesList.sp_ShedulesList.Open;
   end;
+  AdvOfficeMDITabSet1.AddTab(frmShedulesList);
   frmShedulesList.Show;
 end;
 
@@ -145,19 +183,7 @@ var
   component : TcxTextEdit;
   Edit : TEdit;
 begin
-  {
-  ADOQuery1.Close;
-  if not DM.ADOConnection.Connected then
-  begin
-    DM.ADOConnection.Connected := True;
-  ADOQuery1.Active;
-  ShowMessage(ADOQuery1.SQL.Text);
-  AdoQuery1.Active;
-  ADOQuery1.Open;
-  ShowMessage(IntToStr(ADOQuery1.RecordCount));
-  end;
-  }
-  if (frmWait = nil) then Application.CreateForm(TfrmWait, frmWait);
+   if (frmWait = nil) then Application.CreateForm(TfrmWait, frmWait);
   if frmWait.Showing then frmWait.Close
   else frmWait.Show;
 
@@ -167,19 +193,13 @@ begin
 
 end;
 
-procedure TfrmMain.dxBarButton2Click(Sender: TObject);
-begin
-  if (frmDictType = nil) then Application.CreateForm(TfrmDictType, frmDictType);
-  AdvOfficeMDITabSet1.AddTab(frmDictType);
-  frmDictType.Show;
-end;
-
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
   IniFile : TIniFile;
   ConnectionString : String;
 begin
   iButtonsCount := 0;
+  ReportsDirPath := ExtractFileDir(ParamStr(0)) + '\Reports';
   //Открываем файл настроек
   IniFile := TiniFile.Create(extractfilepath(paramstr(0)) + 'Settings.ini');
   ConnectionString := IniFile.ReadString('Connections', 'ConnectionString', '');
@@ -200,63 +220,13 @@ begin
     ShowMessage('Проверьте настройки подключения к серверу');
   end;
   IniFile.Free;
+
+  listReportFill(ReportsDirPath);
 end;
 
-procedure TfrmMain.CreateFormButton(form1:TForm);
-var
-  ABar : TdxBar;
-  NewButton : TdxBarButton;
-  NewItemLink : TdxBarItemLink;
-begin
-   inc(iButtonsCount);
-   ABar := Bar1;
-   NewButton := TdxBarButton.Create(self);
-   NewItemLink := ABar.ItemLinks.Add;
-   NewItemLink.Item := NewButton;
-   NewItemLink.Item.Tag := form1.Handle;
-   NewButton.Tag          := form1.Handle;
-   NewButton.Name         := 'dxButton'+IntToStr(NewButton.Tag);
-   NewButton.Caption      := form1.Caption; //+ '[' + IntToStr(iButtonsCount) + ']';
-   NewButton.Hint         := form1.Caption;
-   NewButton.OnClick      := dxBarButtonClick;
-   NewButton.ButtonStyle  := bsChecked;
-   NewButton.Down         := true;
-   NewButton.PaintStyle   := psCaptionGlyph;
-   NewButton.GroupIndex   := 1;
-   NewButton.Glyph.Width  := 16;//GetSystemMetrics(SM_CXSMICON);
-   NewButton.Glyph.Height := 16;//GetSystemMetrics(SM_CYSMICON);
-   NewButton.Glyph.Canvas.Draw(0,0,form1.Icon);
-   ABar.Control.RepaintBar;
-end;
 
-procedure TfrmMain.DeleteFormButton(form1:TForm);
-Var
- i:integer;
-begin
-  for I := 0 to Bar1.ItemLinks.Count - 1 do
-    if Bar1.ItemLinks[i].Item is TdxBarButton then
-      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
-        Bar1.ItemLinks[i].Item.Free;
-        Break;
-      end;
-end;
 
-procedure TfrmMain.SetDownFormButton(form1:TForm);
-Var
- i:integer;
-begin
-  for I := 0 to Bar1.ItemLinks.Count - 1 do
-    if Bar1.ItemLinks[i].Item is TdxBarButton then
-      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
-        TdxBarButton(Bar1.ItemLinks[i].Item).Down := false;
-      end;
-  for I := 0 to Bar1.ItemLinks.Count - 1 do
-    if Bar1.ItemLinks[i].Item is TdxBarButton then
-      if TdxBarButton(Bar1.ItemLinks[i].Item).Tag = form1.Handle then begin
-        TdxBarButton(Bar1.ItemLinks[i].Item).Down := true;
-        break;
-      end;
-end;
+
 
 procedure TfrmMain.dxBarButtonClick(Sender: TObject);
 var
@@ -273,9 +243,48 @@ begin
   Application.CreateForm(TfrmLoad, frmLoad);
 end;
 
+procedure TfrmMain.dxListReportsClick(Sender: TObject);
+var
+  reportName: String;
+  fileName: String;
+  filePath: String;
+begin
+  reportName := dxListReports.Items[dxListReports.ItemIndex];
+  fileName := reportName + '.fr3';
+  filePath := ReportsDirPath + '\' + fileName;
+  PrepareReport(filePath);
+end;
 
+procedure TfrmMain.PrepareReport(filePath: String);
+var
+  Report: TfrxReport;
+  DB: TfrxADODatabase;
+begin
+  Report := TfrxReport.Create(nil);
+  Report.LoadFromFile(filePath);
+  DB := Report.FindObject('DB') as TfrxADODatabase;
+  DB.Connected := False;
+  DB.DatabaseName := DM.ADOConnection.ConnectionString;
+  DB.Connected := True;
+  Report.PrepareReport(True);
+  Report.ShowPreparedReport;
+end;
 
-
-
+procedure TfrmMain.listReportFill(pathDir: string);
+var
+  sr: TSearchRec;
+  sl: TStringList;
+begin
+  sl := TStringList.Create();
+  if FindFirst(pathDir +'\*.fr3', faAnyFile, sr) = 0 then
+  begin
+     repeat
+       sl.Add(ChangeFileExt(sr.Name, ''));
+     until FindNext(sr) <> 0;
+     FindClose(sr);
+     dxListReports.Items := sl;
+     sl.Free;
+  end;
+end;
 
 end.

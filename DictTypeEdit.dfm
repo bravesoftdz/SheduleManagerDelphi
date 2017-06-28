@@ -2,6 +2,7 @@ object frmDictTypeEdit: TfrmDictTypeEdit
   Left = 0
   Top = 0
   BorderStyle = bsDialog
+  Caption = #1057#1086#1079#1076#1072#1085#1080#1077' '#1089#1087#1088#1072#1074#1086#1095#1085#1080#1082#1072
   ClientHeight = 90
   ClientWidth = 374
   Color = clBtnFace

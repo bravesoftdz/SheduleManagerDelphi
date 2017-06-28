@@ -1,4 +1,4 @@
-object frmShedule: TfrmShedule
+﻿object frmShedule: TfrmShedule
   Left = 0
   Top = 0
   Caption = #1056#1072#1089#1087#1080#1089#1072#1085#1080#1077
@@ -14,8 +14,6 @@ object frmShedule: TfrmShedule
   OldCreateOrder = False
   Visible = True
   WindowState = wsMaximized
-  OnActivate = FormActivate
-  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object cxGrid1: TcxGrid
@@ -25,8 +23,6 @@ object frmShedule: TfrmShedule
     Height = 402
     Align = alClient
     TabOrder = 4
-    ExplicitLeft = 8
-    ExplicitTop = 144
     object cxGrid1DBTableView1: TcxGridDBTableView
       NavigatorButtons.ConfirmDelete = False
       DataController.DataSource = ds_Shedule
@@ -34,112 +30,114 @@ object frmShedule: TfrmShedule
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsView.ColumnAutoWidth = True
-      OptionsView.GroupByBox = False
-      object cxGrid1DBTableView1Shedules_ID: TcxGridDBColumn
-        DataBinding.FieldName = 'Shedules_ID'
+      object cxGrid1DBTableView1_Shedules_ID: TcxGridDBColumn
+        DataBinding.FieldName = '_Shedules_ID'
         Visible = False
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1AcademicYears: TcxGridDBColumn
-        DataBinding.FieldName = 'AcademicYears'
+      object cxGrid1DBTableView1DBColumn: TcxGridDBColumn
+        DataBinding.FieldName = #1059#1095#1077#1073#1085#1099#1081' '#1075#1086#1076
         Visible = False
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
+        Width = 40
       end
-      object cxGrid1DBTableView1InstitutName: TcxGridDBColumn
-        DataBinding.FieldName = 'InstitutName'
+      object cxGrid1DBTableView1_AcademicYearsID: TcxGridDBColumn
+        DataBinding.FieldName = '_AcademicYearsID'
         Visible = False
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1SemestrName: TcxGridDBColumn
-        DataBinding.FieldName = 'SemestrName'
+      object cxGrid1DBTableView1DBColumn1: TcxGridDBColumn
+        DataBinding.FieldName = #1048#1085#1089#1090#1080#1090#1091#1090
         Visible = False
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1Shedules_Detail_ID: TcxGridDBColumn
-        DataBinding.FieldName = 'Shedules_Detail_ID'
+      object cxGrid1DBTableView1_InstitutID: TcxGridDBColumn
+        DataBinding.FieldName = '_InstitutID'
         Visible = False
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1DayName: TcxGridDBColumn
-        Caption = #1044#1077#1085#1100' '#1085#1077#1076#1077#1083#1080
-        DataBinding.FieldName = 'DayName'
+      object cxGrid1DBTableView1DBColumn2: TcxGridDBColumn
+        DataBinding.FieldName = #1057#1077#1084#1077#1089#1090#1088
         Visible = False
-        GroupIndex = 2
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1GroupName: TcxGridDBColumn
-        Caption = #1043#1088#1091#1087#1087#1072
-        DataBinding.FieldName = 'GroupName'
+      object cxGrid1DBTableView1_SemestrID: TcxGridDBColumn
+        DataBinding.FieldName = '_SemestrID'
         Visible = False
-        GroupIndex = 0
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1LessonNumber: TcxGridDBColumn
-        Caption = #8470' '#1087#1072#1088#1099
-        DataBinding.FieldName = 'LessonNumber'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 50
-        Options.Editing = False
-        Options.Moving = False
+      object cxGrid1DBTableView1_Shedules_Detail_ID: TcxGridDBColumn
+        DataBinding.FieldName = '_Shedules_Detail_ID'
+        Visible = False
       end
-      object cxGrid1DBTableView1TimeBegin: TcxGridDBColumn
-        Caption = #1042#1088#1077#1084#1103' '#1085#1072#1095#1072#1083#1072
-        DataBinding.FieldName = 'TimeBegin'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 100
-        Options.Editing = False
-        Options.Moving = False
-      end
-      object cxGrid1DBTableView1TimeEnd: TcxGridDBColumn
-        Caption = #1042#1088#1077#1084#1103' '#1086#1082#1086#1085#1095#1072#1085#1080#1103
-        DataBinding.FieldName = 'TimeEnd'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 100
-        Options.Editing = False
-        Options.Moving = False
-      end
-      object cxGrid1DBTableView1LessonTypeName: TcxGridDBColumn
-        Caption = #1042#1080#1076' '#1079#1072#1085#1103#1090#1080#1081
-        DataBinding.FieldName = 'LessonTypeName'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 50
-        Options.Moving = False
-      end
-      object cxGrid1DBTableView1SubjectName: TcxGridDBColumn
-        Caption = #1055#1088#1077#1076#1084#1077#1090
-        DataBinding.FieldName = 'SubjectName'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 150
-        Options.Moving = False
-      end
-      object cxGrid1DBTableView1TeacherName: TcxGridDBColumn
-        Caption = #1055#1088#1077#1087#1086#1076#1072#1074#1072#1090#1077#1083#1100
-        DataBinding.FieldName = 'TeacherName'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 150
-        Options.Moving = False
-      end
-      object cxGrid1DBTableView1WeekName: TcxGridDBColumn
-        Caption = #1053#1077#1076#1077#1083#1103
-        DataBinding.FieldName = 'WeekName'
+      object cxGrid1DBTableView1DBColumn3: TcxGridDBColumn
+        DataBinding.FieldName = #1044#1077#1085#1100' '#1085#1077#1076#1077#1083#1080
         Visible = False
         GroupIndex = 1
-        HeaderAlignmentHorz = taCenter
-        Options.Moving = False
       end
-      object cxGrid1DBTableView1ClassRoomName: TcxGridDBColumn
-        Caption = #1040#1091#1076#1080#1090#1086#1088#1080#1103
-        DataBinding.FieldName = 'ClassRoomName'
-        HeaderAlignmentHorz = taCenter
-        MinWidth = 100
-        Options.Moving = False
+      object cxGrid1DBTableView1_A6_Days: TcxGridDBColumn
+        DataBinding.FieldName = '_A6_Days'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn4: TcxGridDBColumn
+        DataBinding.FieldName = #1043#1088#1091#1087#1087#1072
+        Visible = False
+        GroupIndex = 0
+        Width = 72
+      end
+      object cxGrid1DBTableView1_A8_Groups: TcxGridDBColumn
+        DataBinding.FieldName = '_A8_Groups'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn5: TcxGridDBColumn
+        DataBinding.FieldName = #1053#1086#1084#1077#1088' '#1087#1072#1088#1099
+        Width = 53
+      end
+      object cxGrid1DBTableView1DBColumn6: TcxGridDBColumn
+        DataBinding.FieldName = #1042#1088#1077#1084#1103' '#1085#1072#1095#1072#1083#1072
+        Width = 67
+      end
+      object cxGrid1DBTableView1DBColumn7: TcxGridDBColumn
+        DataBinding.FieldName = #1042#1088#1077#1084#1103' '#1086#1082#1086#1085#1095#1072#1085#1080#1103
+        Width = 66
+      end
+      object cxGrid1DBTableView1_A9_Lesson_Number: TcxGridDBColumn
+        DataBinding.FieldName = '_A9_Lesson_Number'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn8: TcxGridDBColumn
+        DataBinding.FieldName = #1042#1080#1076' '#1079#1072#1085#1103#1090#1080#1103
+        Width = 67
+      end
+      object cxGrid1DBTableView1_A10_Lesson_Type: TcxGridDBColumn
+        DataBinding.FieldName = '_A10_Lesson_Type'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn9: TcxGridDBColumn
+        DataBinding.FieldName = #1055#1088#1077#1076#1084#1077#1090
+        Width = 66
+      end
+      object cxGrid1DBTableView1A11_Subject: TcxGridDBColumn
+        DataBinding.FieldName = 'A11_Subject'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn10: TcxGridDBColumn
+        DataBinding.FieldName = #1055#1088#1077#1087#1086#1076#1072#1074#1072#1090#1077#1083#1100
+        Width = 67
+      end
+      object cxGrid1DBTableView1_A13_Teachers: TcxGridDBColumn
+        DataBinding.FieldName = '_A13_Teachers'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn11: TcxGridDBColumn
+        DataBinding.FieldName = #1058#1080#1087' '#1085#1077#1076#1077#1083#1080
+        Visible = False
+        GroupIndex = 2
+      end
+      object cxGrid1DBTableView1_A5_Weeks: TcxGridDBColumn
+        DataBinding.FieldName = '_A5_Weeks'
+        Visible = False
+      end
+      object cxGrid1DBTableView1DBColumn12: TcxGridDBColumn
+        DataBinding.FieldName = #1040#1091#1076#1080#1090#1086#1088#1080#1103
+        Width = 66
+      end
+      object cxGrid1DBTableView1A16_ClassRooms: TcxGridDBColumn
+        DataBinding.FieldName = 'A16_ClassRooms'
+        Visible = False
       end
     end
     object cxGrid1Level1: TcxGridLevel
@@ -223,65 +221,97 @@ object frmShedule: TfrmShedule
       end>
     Left = 96
     Top = 360
-    object sp_SheduleShedules_ID: TAutoIncField
-      FieldName = 'Shedules_ID'
+    object sp_Shedule_Shedules_ID: TAutoIncField
+      FieldName = '_Shedules_ID'
       ReadOnly = True
     end
-    object sp_SheduleAcademicYears: TStringField
-      FieldName = 'AcademicYears'
+    object sp_SheduleУчебныйгод: TStringField
+      FieldName = #1059#1095#1077#1073#1085#1099#1081' '#1075#1086#1076
+      Size = 255
+    end
+    object sp_Shedule_AcademicYearsID: TIntegerField
+      FieldName = '_AcademicYearsID'
+    end
+    object sp_SheduleИнститут: TStringField
+      FieldName = #1048#1085#1089#1090#1080#1090#1091#1090
+      Size = 255
+    end
+    object sp_Shedule_InstitutID: TIntegerField
+      FieldName = '_InstitutID'
+    end
+    object sp_SheduleСеместр: TStringField
+      FieldName = #1057#1077#1084#1077#1089#1090#1088
+      Size = 255
+    end
+    object sp_Shedule_SemestrID: TIntegerField
+      FieldName = '_SemestrID'
+    end
+    object sp_Shedule_Shedules_Detail_ID: TAutoIncField
+      FieldName = '_Shedules_Detail_ID'
       ReadOnly = True
-      Size = 11
     end
-    object sp_SheduleInstitutName: TStringField
-      FieldName = 'InstitutName'
-      Size = 1024
+    object sp_SheduleДеньнедели: TStringField
+      FieldName = #1044#1077#1085#1100' '#1085#1077#1076#1077#1083#1080
+      Size = 255
     end
-    object sp_SheduleSemestrName: TStringField
-      FieldName = 'SemestrName'
-      Size = 16
+    object sp_Shedule_A6_Days: TIntegerField
+      FieldName = '_A6_Days'
     end
-    object sp_SheduleShedules_Detail_ID: TAutoIncField
-      FieldName = 'Shedules_Detail_ID'
-      ReadOnly = True
+    object sp_SheduleГруппа: TStringField
+      FieldName = #1043#1088#1091#1087#1087#1072
+      Size = 255
     end
-    object sp_SheduleDayName: TStringField
-      FieldName = 'DayName'
-      Size = 16
+    object sp_Shedule_A8_Groups: TIntegerField
+      FieldName = '_A8_Groups'
     end
-    object sp_SheduleGroupName: TStringField
-      FieldName = 'GroupName'
-      Size = 16
+    object sp_SheduleНомерпары: TIntegerField
+      FieldName = #1053#1086#1084#1077#1088' '#1087#1072#1088#1099
     end
-    object sp_SheduleLessonNumber: TIntegerField
-      FieldName = 'LessonNumber'
+    object sp_SheduleВремяначала: TStringField
+      FieldName = #1042#1088#1077#1084#1103' '#1085#1072#1095#1072#1083#1072
+      Size = 255
     end
-    object sp_SheduleTimeBegin: TWideStringField
-      FieldName = 'TimeBegin'
-      Size = 16
+    object sp_SheduleВремяокончания: TStringField
+      FieldName = #1042#1088#1077#1084#1103' '#1086#1082#1086#1085#1095#1072#1085#1080#1103
+      Size = 255
     end
-    object sp_SheduleTimeEnd: TWideStringField
-      FieldName = 'TimeEnd'
-      Size = 16
+    object sp_Shedule_A9_Lesson_Number: TIntegerField
+      FieldName = '_A9_Lesson_Number'
     end
-    object sp_SheduleLessonTypeName: TStringField
-      FieldName = 'LessonTypeName'
-      Size = 64
+    object sp_SheduleВидзанятия: TStringField
+      FieldName = #1042#1080#1076' '#1079#1072#1085#1103#1090#1080#1103
+      Size = 255
     end
-    object sp_SheduleSubjectName: TStringField
-      FieldName = 'SubjectName'
-      Size = 128
+    object sp_Shedule_A10_Lesson_Type: TIntegerField
+      FieldName = '_A10_Lesson_Type'
     end
-    object sp_SheduleTeacherName: TStringField
-      FieldName = 'TeacherName'
-      Size = 512
+    object sp_SheduleПредмет: TStringField
+      FieldName = #1055#1088#1077#1076#1084#1077#1090
+      Size = 255
     end
-    object sp_SheduleWeekName: TStringField
-      FieldName = 'WeekName'
-      Size = 16
+    object sp_SheduleA11_Subject: TIntegerField
+      FieldName = 'A11_Subject'
     end
-    object sp_SheduleClassRoomName: TStringField
-      FieldName = 'ClassRoomName'
-      Size = 16
+    object sp_SheduleПреподаватель: TStringField
+      FieldName = #1055#1088#1077#1087#1086#1076#1072#1074#1072#1090#1077#1083#1100
+      Size = 255
+    end
+    object sp_Shedule_A13_Teachers: TIntegerField
+      FieldName = '_A13_Teachers'
+    end
+    object sp_SheduleТипнедели: TStringField
+      FieldName = #1058#1080#1087' '#1085#1077#1076#1077#1083#1080
+      Size = 255
+    end
+    object sp_Shedule_A5_Weeks: TIntegerField
+      FieldName = '_A5_Weeks'
+    end
+    object sp_SheduleАудитория: TStringField
+      FieldName = #1040#1091#1076#1080#1090#1086#1088#1080#1103
+      Size = 255
+    end
+    object sp_SheduleA16_ClassRooms: TIntegerField
+      FieldName = '_A16_ClassRooms'
     end
   end
 end

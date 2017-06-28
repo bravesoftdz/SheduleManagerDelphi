@@ -14,6 +14,7 @@ object frmWait: TfrmWait
   Font.Style = []
   OldCreateOrder = False
   Position = poMainFormCenter
+  OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -23,5 +24,12 @@ object frmWait: TfrmWait
     Width = 150
     Height = 150
     Transparent = True
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 100
+    OnTimer = Timer1Timer
+    Left = 16
+    Top = 104
   end
 end

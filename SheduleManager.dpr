@@ -16,7 +16,11 @@ uses
   DictColumns in 'DictColumns.pas' {frmDictColumns},
   DictColumnsEdit in 'DictColumnsEdit.pas' {frmDictColumnsEdit},
   DictEdit in 'DictEdit.pas' {frmDictEdit},
-  Load in 'Load.pas' {frmLoad};
+  Load in 'Load.pas' {frmLoad},
+  Calendar in 'Calendar.pas' {Form1},
+  FormsList in 'FormsList.pas' {frmFormsList},
+  Form in 'Form.pas' {frmForm},
+  FormEdit in 'FormEdit.pas' {frmFormEdit};
 
 {$R *.res}
 

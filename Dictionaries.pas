@@ -145,8 +145,6 @@ type
     v_SemestrsSemestrs_Type: TcxGridDBBandedColumn;
     sp_DaysTypeDays_Type_ID: TAutoIncField;
     sp_DaysTypeName: TStringField;
-    procedure FormActivate(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
     procedure btnCancelClick(Sender : TObject);
     procedure gr_DictionariesListDBTableView1CellClick(
@@ -205,16 +203,6 @@ implementation
 {$R *.dfm}
 
 uses MainData, Main;
-
-procedure TfrmDictionaries.FormActivate(Sender: TObject);
-begin
-  frmMain.SetDownFormButton(self);
-end;
-
-procedure TfrmDictionaries.FormCreate(Sender: TObject);
-begin
-  frmMain.CreateFormButton(self);
-end;
 
 procedure TfrmDictionaries.gr_DictionariesListDBTableView1CellClick(
   Sender: TcxCustomGridTableView; ACellViewInfo: TcxGridTableDataCellViewInfo;

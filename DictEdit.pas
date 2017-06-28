@@ -18,10 +18,12 @@ type
     ds_Columns: TDataSource;
     procedure FormCreate(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
     Action: Integer;
+    DictTypeID: Integer;
   end;
 
 var
@@ -31,7 +33,13 @@ implementation
 
 {$R *.dfm}
 
-uses MainData, Dict;
+uses MainData, Dict, Main;
+
+procedure TfrmDictEdit.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmDictEdit := nil;
+end;
 
 procedure TfrmDictEdit.FormCreate(Sender: TObject);
 var
@@ -48,12 +56,11 @@ var
   lbl_Field: TLabel;
   cx_Btn: TcxButton;
 begin
-  Action := frmDict.Action;
   sp_Columns.Close;
   sp_Columns.Parameters.Clear;
   sp_Columns.Parameters.Refresh;
-  sp_Columns.Parameters.ParamByName('@Dict_Type_ID').Value := frmDict.DictTypeID;
-  if Action = 2 then
+  sp_Columns.Parameters.ParamByName('@Dict_Type_ID').Value := frmMain.DictTypeID;
+  if frmMain.Action = 2 then
     sp_Columns.Parameters.ParamByName('@ID_Dict').Value := frmDict.sp_Dict.FieldByName('Код').AsInteger;
   sp_Columns.Open;
   sp_Columns.First;
@@ -75,7 +82,7 @@ begin
         te_Edit := TcxTextEdit.Create(frmDictEdit);
         te_Edit.Parent := frmDictEdit;
         te_Edit.Name := sp_Columns.FieldByName('Field').AsString;
-        if Action = 2 then
+        if frmMain.Action = 2 then
           te_Edit.Text := sp_Columns.FieldByName('Value').AsString
         else te_Edit.Text := '';
         te_Edit.Top := top;
@@ -95,7 +102,7 @@ begin
         te_Edit := TcxTextEdit.Create(frmDictEdit);
         te_Edit.Parent := frmDictEdit;
         te_Edit.Name := sp_Columns.FieldByName('Field').AsString;
-        if Action = 2 then
+        if frmMain.Action = 2 then
           te_Edit.Text := sp_Columns.FieldByName('Value').AsString
         else te_Edit.Text := '';
         te_Edit.Top := top;
@@ -115,7 +122,7 @@ begin
         cx_Date := TcxDateEdit.Create(frmDictEdit);
         cx_Date.Parent := frmDictEdit;
         cx_Date.Name := sp_Columns.FieldByName('Field').AsString;
-        if Action = 2 then
+        if frmMain.Action = 2 then
           cx_Date.Date := StrToDate(sp_Columns.FieldByName('Value').AsString);
         cx_Date.Top := top;
         cx_Date.Left := left;
@@ -128,7 +135,7 @@ begin
         cx_Check.Parent := frmDictEdit;
         cx_Check.Name := sp_Columns.FieldByName('Field').AsString;
         cx_Check.Caption := sp_Columns.FieldByName('Column_Name').AsString;
-        if Action = 2 then
+        if frmMain.Action = 2 then
           cx_Check.Checked := sp_Columns.FieldByName('Value').AsBoolean;
 
         cx_Check.Top := top;
@@ -162,8 +169,9 @@ begin
         cx_Lookup.Properties.ListSource := ds_Dict;
         cx_Lookup.Properties.KeyFieldNames := 'Код';
         cx_Lookup.Properties.ListFieldNames := 'Наименование';
-        if Action = 2 then
-          cx_Lookup.EditValue := sp_Columns.FieldByName('Value').AsString;
+        if frmMain.Action = 2 then
+          if not(sp_Columns.FieldByName('Value').IsNull) then
+            cx_Lookup.EditValue := sp_Columns.FieldByName('Value').AsString;
         cx_Lookup.Top := top;
         cx_Lookup.Left := left;
         cx_Lookup.Width := 200;
@@ -194,8 +202,8 @@ begin
   top := top + cx_Btn.Height + 10;
 
   frmDictEdit.Height := top + 50;
-  if Action = 1 then frmDictEdit.Caption := 'Добавление записи'
-  else if Action = 2 then frmDictEdit.Caption := 'Редактирование записи';
+  if frmMain.Action = 1 then frmDictEdit.Caption := 'Добавление записи'
+  else if frmMain.Action = 2 then frmDictEdit.Caption := 'Редактирование записи';
 
 end;
 
@@ -210,9 +218,9 @@ begin
   sp_Save.ProcedureName := 'dbo.p_Dict_Save';
   sp_Save.Parameters.Clear;
   sp_Save.Parameters.Refresh;
-  sp_Save.Parameters.ParamByName('@Action').Value := frmDict.Action;
-  sp_Save.Parameters.ParamByName('@Dict_Type_ID').Value := frmDict.DictTypeID;
-  if Action = 2 then
+  sp_Save.Parameters.ParamByName('@Action').Value := frmMain.Action;
+  sp_Save.Parameters.ParamByName('@Dict_Type_ID').Value := frmMain.DictTypeID;
+  if frmMain.Action = 2 then
       sp_Save.Parameters.ParamByName('@ID_Dict').Value := frmDict.sp_Dict.FieldByName('Код').AsInteger;
   for i := 0 to frmDictEdit.ComponentCount - 1 do
   begin
@@ -245,14 +253,10 @@ begin
     sp_Save.ExecProc;
     frmDict.sp_Dict.Close;
     frmDict.sp_Dict.Open;
-    if Action = 1 then ShowMessage('Запись успешно добавлена');
+    if frmMain.Action = 1 then ShowMessage('Запись успешно добавлена');
   finally
     sp_Save.Free;
   end;
-
-
 end;
-
-
 
 end.
